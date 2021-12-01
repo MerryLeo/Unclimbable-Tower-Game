@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 400244624331625711}
   - component: {fileID: 720001369014602145}
   m_Layer: 3
-  m_Name: Outer rim
+  m_Name: OuterRim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 6668041836577789618}
   - component: {fileID: 8811772097629792912}
   m_Layer: 3
-  m_Name: Inside part
+  m_Name: Inside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -189,7 +189,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8372759169616772094, guid: 387f2d6a06811ec42a1caf78d0480336, type: 3}
 --- !u!1 &7705406881109365271
