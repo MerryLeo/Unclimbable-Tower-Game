@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 7877092680040725710}
   - component: {fileID: 8645423560558825442}
   - component: {fileID: 8113948643892494783}
+  - component: {fileID: 827932704}
   m_Layer: 0
   m_Name: Goal
   m_TagString: Untagged
@@ -239,3 +240,15 @@ MonoBehaviour:
   maxLightIntensity: 4
   rotationSpeed: 13
   animationSpeed: 0.5
+--- !u!114 &827932704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8273612467379241402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3543d1e821d92b04ab44ebe50653f347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
