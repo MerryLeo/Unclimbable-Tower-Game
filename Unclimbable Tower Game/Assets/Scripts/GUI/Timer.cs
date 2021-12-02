@@ -15,7 +15,6 @@ public class Timer : MonoBehaviour {
         timerText = GetComponent<Text>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         ResetTimer();
-        StartTimer();
     }
 
     // Update is called once per frame
