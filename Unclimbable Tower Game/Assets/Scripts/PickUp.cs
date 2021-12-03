@@ -3,6 +3,7 @@
 
 using UnityEngine;
 
+
 [RequireComponent(typeof(Camera))]
 [RequireComponent(typeof(CameraController))]
 public class PickUp : MonoBehaviour 
@@ -68,7 +69,7 @@ public class PickUp : MonoBehaviour
             }
 
             // Release the object
-            else if (!Input.GetButton("Fire1") || !CheckIfHoldableInSight()) // !Input.GetButton("Fire1") || !CheckIfHoldableInSight()
+            else if (!Input.GetButton("Fire1") || !CheckIfHoldableInSight())
                 ReleaseCurrentObject();
 
 
@@ -161,14 +162,15 @@ public class PickUp : MonoBehaviour
     bool CheckIfHoldableInSight() 
     {
         RaycastHit hitInfo;
-        bool hitObject = Physics.Raycast(transform.position, (pickedObjectRb.transform.position - transform.position).normalized, out hitInfo, maxHoldDst);
-        bool hitCorrectObject = Transform.ReferenceEquals(hitInfo.transform, pickedObjectRb.transform);
-        return hitObject && hitCorrectObject;
+        Ray ray = new Ray(transform.position, pickedObjectRb.transform.position - transform.position);
+        bool hitObject = Physics.Raycast(ray, out hitInfo, maxHoldDst);
+        return hitObject && hitInfo.rigidbody.tag == holdingTag;
     }
 
     void ReleaseCurrentObject() 
     {
         pickedObjectRb.gameObject.layer = LayerMask.NameToLayer("Ground"); // Set the layer back
+        pickedObjectRb.gameObject.tag = pickupTag;
         pickedObjectRb.angularDrag = objectAngularDrag;
         RotatingTheObject = false;
         cameraController.enabled = true;
@@ -188,6 +190,7 @@ public class PickUp : MonoBehaviour
     {
         // Set the object's layer on a specific layer that the player cannot jump on
         objectRb.gameObject.layer = LayerMask.NameToLayer("Holding");
+        objectRb.gameObject.tag = holdingTag;
 
         // Setup the object's rigidbody
         if (objectRb.mass <= maxHoldWeight) {
@@ -241,4 +244,5 @@ public class PickUp : MonoBehaviour
     {
         pickedObjectRb.centerOfMass = objectCenterOfMass;
     }
+    
 }

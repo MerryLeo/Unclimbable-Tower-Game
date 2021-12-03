@@ -983,7 +983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelTime: 2
-  nextSceneName: 
+  nextSceneName: Level 3
   pauseScreen: {fileID: 1230270598}
   winScreen: {fileID: 451514987}
   gameOverScreen: {fileID: 1723767481}
