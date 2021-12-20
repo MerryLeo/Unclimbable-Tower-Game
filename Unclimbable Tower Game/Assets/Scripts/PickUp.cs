@@ -3,11 +3,202 @@
 
 using UnityEngine;
 
-
-[RequireComponent(typeof(Camera))]
 [RequireComponent(typeof(CameraController))]
 public class PickUp : MonoBehaviour 
 {
+    public PickupState CurrentState { get; private set; } = PickupState.IDLE;     
+    const float maxPickupDst = 5f, maxHoldDst = 5.5f, minCameraObjectDst = 1.5f, maxForce = 60f, throwForce = 120f, torque = 100f;
+    const float pickupAngularDrag = 15f, pickupDrag = 10f;
+    LayerMask holdingLayer;
+    Transform pickedLocation;
+    AnimationCurve pickupSpeedCurve;
+    float force, time;
+    ObjectData objectData;
+
+    const int weightThreshold = 80; // Object heavier than weightThreshold will be considered heavy
+    void Start()
+    {
+        // Location where the player picked the object
+        pickedLocation = new GameObject("PickedLocation").transform;
+        pickedLocation.SetParent(transform);
+
+        // Layers to prohibit the player from jumping on the object in his hand
+        holdingLayer = LayerMask.NameToLayer("Holding");
+
+        // Curve for the speed of the object when it is picked
+        Keyframe[] keys = new Keyframe[2];
+        keys[0] = new Keyframe(0,0,0,0);
+        keys[1] = new Keyframe(1,1,0,0);
+        pickupSpeedCurve = new AnimationCurve(keys);
+    }
+
+    void Update()
+    {
+        // Idle
+        if (CurrentState is PickupState.IDLE || CurrentState is PickupState.OBJECTINSIGHT)
+        {
+            // Ray from camera
+            RaycastHit hitInfo;
+            Ray ray = new Ray(transform.position, transform.forward);
+            bool rayHit = Physics.Raycast(ray, out hitInfo, maxPickupDst);
+            PickableObject objectScript;
+            if (rayHit)
+            {
+                objectScript = hitInfo.transform.GetComponent<PickableObject>();
+                bool pickableObjectInSight = rayHit && objectScript?.CurrentState is ObjectState.PICKABLE;
+                CurrentState = pickableObjectInSight ? PickupState.OBJECTINSIGHT : PickupState.IDLE;
+
+                // Pickup
+                if (CurrentState is PickupState.OBJECTINSIGHT && Input.GetButton("Fire1"))
+                    Pickup(objectScript, hitInfo);
+            }
+        }
+
+        // Holding something
+        else if (CurrentState is PickupState.HOLDINGHEAVYOBJECT || CurrentState is PickupState.HOLDINGLIGHTOBJECT)
+        {
+            // Throw
+            if (CurrentState is PickupState.HOLDINGLIGHTOBJECT && Input.GetButton("Fire2"))
+                Throw();
+
+            // Release
+            if (!Input.GetButton("Fire1") || Vector3.Distance(transform.position, objectData.ObjectRbody.transform.position) > maxHoldDst)
+                Release();
+        }
+    }
+
+    void FixedUpdate() 
+    {
+        // Move object
+        if (CurrentState is PickupState.HOLDINGLIGHTOBJECT || CurrentState is PickupState.HOLDINGHEAVYOBJECT)
+        {
+            force = UtilityClass.Remap(pickupSpeedCurve.Evaluate(Time.time - time), 0, 1, 0, maxForce); // Force is a value between 0 and maxForce
+            Vector3 destination = transform.position + transform.forward * minCameraObjectDst;
+            Rotate(transform.forward);
+
+            if (CurrentState is PickupState.HOLDINGLIGHTOBJECT)
+                Move(destination, force);
+            else
+                Drag(destination, force);
+            
+        }
+
+    }
+
+    // Release the current object
+    void Release()
+    {
+        // Reset the rigidbody and Change State
+        objectData.ResetRigidbody();
+        CurrentState = PickupState.IDLE;
+        objectData.ObjectScript.ChangeState(ObjectState.PICKABLE);
+    }
+
+    // Pickup
+    void Pickup(PickableObject pickup, RaycastHit hitInfo)
+    {
+        // Set some variables to reset the rigidbody when released
+        objectData = new ObjectData(pickup);
+
+        // Modify empty transform for positioning
+        pickedLocation.transform.position = hitInfo.point;
+        pickedLocation.transform.rotation = hitInfo.transform.rotation;
+        pickedLocation.SetParent(objectData.ObjectRbody.transform);
+
+        // Time variable used for the force
+        time = Time.time;
+
+        // Change state
+        this.CurrentState = (objectData.ObjectRbody.mass > weightThreshold) ? PickupState.HOLDINGHEAVYOBJECT : PickupState.HOLDINGLIGHTOBJECT;
+        this.objectData.ObjectScript.ChangeState(ObjectState.HELD);
+
+        // Modify Rigidbody
+        bool gravity = (CurrentState is PickupState.HOLDINGHEAVYOBJECT) ? true : false;
+        objectData.UpdateRbody(pickupDrag, pickupAngularDrag, gravity, holdingLayer);
+    }
+
+    // Move the object to position using forces
+    void Move(Vector3 position, float force)
+    {
+        Vector3 movement = (position - pickedLocation.transform.position) * (force / objectData.ObjectRbody.mass);
+        objectData.ObjectRbody.AddForce(movement, ForceMode.VelocityChange);
+    }
+
+    // Drag the object along the x-axis/z-axis using forces
+    void Drag(Vector3 position, float force)
+    {
+        Vector3 movement = (position - pickedLocation.transform.position) * (force / objectData.ObjectRbody.mass);
+        movement -= Vector3.up * movement.y;
+        objectData.ObjectRbody.AddForce(movement, ForceMode.VelocityChange);
+    }
+
+    void Throw()
+    {
+        Release();
+        objectData.ObjectRbody.AddForce(transform.forward * throwForce, ForceMode.Impulse);
+        objectData.ObjectScript.ChangeState(ObjectState.THROWN);
+    }
+
+    // Rotate the object using torque to align its forward vector with direction
+    void Rotate(Vector3 direction)
+    {
+        Vector3 crossVector = Vector3.Cross(direction.normalized, objectData.ObjectRbody.transform.forward);
+        objectData.ObjectRbody.AddTorque(crossVector * torque, ForceMode.Acceleration);
+    }
+
+    class ObjectData
+    {
+        public PickableObject ObjectScript { get; private set; }
+        public Rigidbody ObjectRbody { get; private set; }
+        LayerMask defaultLayer;
+        float drag, angularDrag;
+        bool gravity;
+        
+        // Constructor to Save Data
+        public ObjectData(PickableObject objectScript)
+        {
+            this.ObjectScript = objectScript;
+
+            // Fetch Rigidbody Data
+            this.ObjectRbody = objectScript.Rbody;
+            this.drag = ObjectRbody.drag;
+            this.angularDrag = ObjectRbody.angularDrag;
+            this.gravity = ObjectRbody.useGravity;
+
+            this.defaultLayer = objectScript.gameObject.layer;
+        }
+
+        // Modify Object Rigidbody Propreties
+        public void UpdateRbody(float drag, float angularDrag, bool useGravity, LayerMask mask)
+        {
+            ObjectRbody.drag = drag;
+            ObjectRbody.angularDrag = angularDrag;
+            ObjectRbody.useGravity = useGravity;
+            ObjectRbody.gameObject.layer = mask;
+        }
+
+        // Reset Rigidbody Propreties
+        public void ResetRigidbody()
+        {
+            ObjectRbody.drag = this.drag;
+            ObjectRbody.angularDrag = this.angularDrag;
+            ObjectRbody.useGravity = this.gravity;
+            ObjectRbody.gameObject.layer = this.defaultLayer;
+        }
+    }
+    /*
+    async void CalculateObjectSpeed()
+    {
+        float time = Time.time;
+        speed = 0;
+        while (speed == 0 && (CurrentState is PickupState.HOLDINGLIGHTOBJECT || CurrentState is PickupState.HOLDINGLIGHTOBJECT))
+        {
+            await Task.Yield();
+        }
+    }
+    */
+
+    /*
     [SerializeField]
     LayerMask unpickableLayer;
     public bool HoldingLightObject { get; private set; }
@@ -244,5 +435,15 @@ public class PickUp : MonoBehaviour
     {
         pickedObjectRb.centerOfMass = objectCenterOfMass;
     }
-    
+    */
+}
+
+public enum PickupState
+{
+    HOLDINGLIGHTOBJECT,
+    HOLDINGHEAVYOBJECT,
+    ROTATINGOBJECT,
+    OBJECTINSIGHT,
+    IDLE,
+    INACTIVE
 }

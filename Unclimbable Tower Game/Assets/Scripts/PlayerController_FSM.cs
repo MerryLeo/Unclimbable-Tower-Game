@@ -3,6 +3,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
+[SelectionBase]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Collider))]
 public class PlayerController_FSM : MonoBehaviour 

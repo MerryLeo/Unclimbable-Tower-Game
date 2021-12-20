@@ -4,8 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Holding
   - Pickup
+  - Unpickable
   layers:
   - Default
   - TransparentFX
@@ -14,8 +14,8 @@ TagManager:
   - Water
   - UI
   - Unpickable
-  - Holding
   - Post Processing
+  - Holding
   - 
   - 
   - 

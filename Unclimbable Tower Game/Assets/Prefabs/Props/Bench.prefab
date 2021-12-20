@@ -13,10 +13,11 @@ GameObject:
   - component: {fileID: 3032544093894531247}
   - component: {fileID: 1060827439427696786}
   - component: {fileID: 191539408952992983}
+  - component: {fileID: 3109751716033028279}
   - component: {fileID: 2010216746569657613}
   m_Layer: 3
   m_Name: Bench
-  m_TagString: Pickup
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,6 +116,18 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3109751716033028279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8241611605222642847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdb80b08063740845baa56cb261392a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2010216746569657613
 MonoBehaviour:
   m_ObjectHideFlags: 0
