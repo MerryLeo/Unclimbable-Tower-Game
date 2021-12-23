@@ -38,7 +38,7 @@ public class Crosshair : MonoBehaviour
             case PickupState.OBJECTINSIGHT:
                 SetImageActive(handPickImg);
                 break;
-            case PickupState.ROTATINGOBJECT:
+            case PickupState.ROTATINGLIGHTOBJECT:
                 SetImageActive(handRotatingImg);
                 break;
             default:
