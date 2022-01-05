@@ -2,13 +2,17 @@
 
 Shader "Unlit/LeavesShader"
 {
-    Properties{
+    Properties
+    {
+        _Opacity("Texture Opacity", Range(0.0, 1.0)) = 0.5
+        _Texture("Texture", 2D) = "" {}
         _LowerHeightColor("Lower Height Color", Color) = (0,0,0,1)
         _HigherHeightColor("Higher Height Color", Color) = (1,1,1,1)
         _MaxHeight("Max Height", Float) = 30
         _MinHeight("Min Height", Float) = 0
     }
-    SubShader {
+    SubShader 
+    {
         Tags { "RenderType" = "Opaque" }
         LOD 100
 
@@ -19,19 +23,22 @@ Shader "Unlit/LeavesShader"
 
             #include "UnityCG.cginc"
 
+            sampler2D _Texture;
+            float4 _Texture_ST;
             float4 _LowerHeightColor;
             float4 _HigherHeightColor;
-            float _MaxHeight;
-            float _MinHeight;
+            float _MaxHeight, _MinHeight, _Opacity;
 
-            struct appdata {
+            struct appdata 
+            {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
                 float3 normal : NORMAL;
 
             };
 
-            struct v2f {
+            struct v2f 
+            {
                 float4 vertex : SV_POSITION;
                 float2 uv : TEXCOORD0;
                 float3 worldCoords : TEXCOORD1;
@@ -39,7 +46,8 @@ Shader "Unlit/LeavesShader"
             };
 
 
-            v2f vert (appdata v) {
+            v2f vert (appdata v)
+            {
                 v2f o;
                 o.normal = v.normal;
                 o.worldCoords = mul (unity_ObjectToWorld, v.vertex);
@@ -48,22 +56,32 @@ Shader "Unlit/LeavesShader"
                 return o;
             }
 
-            float InvLerp(float a, float b, float v) {
+            float InvLerp(float a, float b, float v) 
+            {
                 return (v - a) / (b - a);
             }
 
-            fixed4 frag(v2f i) : SV_Target {
-                //return float4(i.normal, 1);
-
+            fixed4 frag(v2f i) : SV_Target 
+            {
+                // Gradient Color
                 float height = clamp(i.worldCoords.y, _MinHeight, _MaxHeight);
                 float ratio = InvLerp(_MinHeight, _MaxHeight, height);
-                float3 col = lerp(_LowerHeightColor, _HigherHeightColor, ratio);
+                float3 gradientCol = lerp(_LowerHeightColor, _HigherHeightColor, ratio);
+
+                // Tree Texture Color
+                float3 tangent = cross(float3(i.normal.x, 0, i.normal.z), float3(0, 1, 0));
+                float dist = dot(i.worldCoords.xz, tangent.xz);
+                float2 texCoords = float2(_Texture_ST.z + dist * _Texture_ST.x, _Texture_ST.w + i.worldCoords.y * _Texture_ST.y);
+                float4 texCol = tex2D(_Texture, texCoords);
+
+                float3 col = gradientCol + gradientCol * _Opacity * texCol;
                 return float4(col, 1);
             }
             ENDCG
         }
 
-        Pass {
+        Pass 
+        {
             Name "ShadowCaster"
             Tags { "LightMode" = "ShadowCaster" }
 

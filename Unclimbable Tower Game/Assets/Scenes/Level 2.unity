@@ -1930,7 +1930,7 @@ PrefabInstance:
     - target: {fileID: 7536314720639308160, guid: 1edcf8fbac87df548bdf9e78478f70b1, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: f2040c9212ffded46a9a868ac6cbc391, type: 2}
+      objectReference: {fileID: 2100000, guid: a20d6ed2b783ad342b68bfabb0a05760, type: 2}
     - target: {fileID: 8571838575135282391, guid: 1edcf8fbac87df548bdf9e78478f70b1, type: 3}
       propertyPath: m_Name
       value: Three-sidedPlatform
@@ -4872,7 +4872,7 @@ PrefabInstance:
     - target: {fileID: 697471520253954147, guid: 4386bcbb99260ba4abc15bb484bb1e6e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f2040c9212ffded46a9a868ac6cbc391, type: 2}
+      objectReference: {fileID: 2100000, guid: a20d6ed2b783ad342b68bfabb0a05760, type: 2}
     - target: {fileID: 1345461555277156540, guid: 4386bcbb99260ba4abc15bb484bb1e6e, type: 3}
       propertyPath: m_Name
       value: Three-sided Wall
@@ -4962,7 +4962,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 857197111223177115, guid: 5ca460c7bde2bef49ab0d554367235c6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.21
+      value: -5.02
       objectReference: {fileID: 0}
     - target: {fileID: 857197111223177115, guid: 5ca460c7bde2bef49ab0d554367235c6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4999,7 +4999,7 @@ PrefabInstance:
     - target: {fileID: 1116724138562876396, guid: 5ca460c7bde2bef49ab0d554367235c6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f2040c9212ffded46a9a868ac6cbc391, type: 2}
+      objectReference: {fileID: 2100000, guid: a20d6ed2b783ad342b68bfabb0a05760, type: 2}
     - target: {fileID: 6679891453922838370, guid: 5ca460c7bde2bef49ab0d554367235c6, type: 3}
       propertyPath: m_Name
       value: Four-sided Wall
@@ -5092,7 +5092,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7717297398392083713, guid: c7cc419d89fc02d40bb954b250669bff, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.78999996
+      value: 0.98
       objectReference: {fileID: 0}
     - target: {fileID: 7717297398392083713, guid: c7cc419d89fc02d40bb954b250669bff, type: 3}
       propertyPath: m_LocalPosition.z

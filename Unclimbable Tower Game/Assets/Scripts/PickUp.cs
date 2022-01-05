@@ -7,15 +7,14 @@ using UnityEngine;
 public class PickUp : MonoBehaviour 
 {
     public PickupState CurrentState { get; private set; } = PickupState.IDLE;     
-    const float maxPickupDst = 5f, maxHoldDst = 5.5f, minCameraObjectDst = 1.5f, force = 60f, throwForce = 275f, torque = 100f;
-    const float pickupAngularDrag = 15f, pickupDrag = 10f;
+    const float maxPickupDst = 5f, maxHoldDst = 5.5f, minCameraObjectDst = 1.5f, force = 60f, throwForce = 275f, torque = 80f;
+    const float pickupAngularDrag = 15f, pickupDrag = 10f, decelerationThreshold = 2.25f;
     LayerMask holdingLayer;
     Transform pickedTrans, rotationTrans;
     AnimationCurve pickupSpeedCurve;
     float currentForce, time;
     ObjectData objectData;
     CameraController camController;
-
     const int weightThreshold = 80; // Object heavier than weightThreshold will be considered heavy
     void Start()
     {
@@ -151,14 +150,38 @@ public class PickUp : MonoBehaviour
         this.objectData.ObjectScript.ChangeState(ObjectState.HELD);
 
         // Modify Rigidbody
-        bool gravity = (CurrentState is PickupState.HOLDINGHEAVYOBJECT) ? true : false;
-        objectData.UpdateRbody(pickupDrag, pickupAngularDrag, gravity, holdingLayer);
+        objectData.UpdateRbody(pickupDrag, pickupAngularDrag, true, holdingLayer);
     }
 
     // Move the object to position using forces
     void Move(Vector3 position, float force)
     {
         Vector3 movement = (position - pickedTrans.transform.position) * (force / objectData.ObjectRbody.mass);
+        float distance = Vector3.Distance(objectData.ObjectRbody.position, transform.position);
+        /*
+        if (distance < decelerationThreshold)
+        {
+            float percentage = Mathf.InverseLerp(decelerationThreshold, 1.5f, Mathf.Clamp(distance, 1.5f, decelerationThreshold));
+
+            Vector3 relativePos = transform.position - objectData.ObjectRbody.position;
+            Vector3 deceleration = Vector3.zero;
+            if (Mathf.Sign(relativePos.x) == Mathf.Sign(movement.x))
+            {
+                deceleration += Vector3.right * Mathf.Lerp(0, movement.x, percentage);
+            }
+
+            if (Mathf.Sign(relativePos.y) == Mathf.Sign(movement.y))
+            {
+                deceleration += Vector3.up * Mathf.Lerp(0, movement.y, percentage);
+            }
+
+            if (Mathf.Sign(relativePos.z) == Mathf.Sign(movement.z))
+            {
+                deceleration += Vector3.forward * Mathf.Lerp(0, movement.z, percentage);
+            }
+            movement -= deceleration;
+        }
+        */
         objectData.ObjectRbody.AddForce(movement, ForceMode.VelocityChange);
     }
 
