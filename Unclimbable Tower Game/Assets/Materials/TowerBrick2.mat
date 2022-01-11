@@ -57,11 +57,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _SideTex:
         m_Texture: {fileID: 2800000, guid: b6729a0d44c32e94a9e0ead2606f79a2, type: 3}
-        m_Scale: {x: 0.5, y: 0.5}
+        m_Scale: {x: 0.3, y: 0.3}
         m_Offset: {x: 0, y: 0}
     - _TopTex:
         m_Texture: {fileID: 2800000, guid: fb4c9126ed8df1140868be39f7d0b4bb, type: 3}
-        m_Scale: {x: 0.5, y: 0.5}
+        m_Scale: {x: 0.1, y: 0.1}
         m_Offset: {x: 1, y: 0}
     m_Floats:
     - _BumpScale: 1
@@ -86,6 +86,6 @@ Material:
     m_Colors:
     - _Color: {r: 0.1896026, g: 0.20754719, b: 0.1791563, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SideColor: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 1}
-    - _TopColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SideColor: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
+    - _TopColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
   m_BuildTextureStacks: []

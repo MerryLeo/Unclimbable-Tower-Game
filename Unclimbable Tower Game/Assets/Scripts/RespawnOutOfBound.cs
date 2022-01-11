@@ -2,6 +2,7 @@
 
 using UnityEngine;
 
+[RequireComponent(typeof(PickableObject))]
 [RequireComponent(typeof(Rigidbody))]
 public class RespawnOutOfBound : MonoBehaviour 
 {
