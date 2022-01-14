@@ -2,9 +2,9 @@ using UnityEngine;
 public class PlayerIdleState : PlayerBaseState
 {
     bool grounded, walking, running, jumping;
-    public override void EnterState(PlayerController_FSM playerController)
+    public override void EnterState(PlayerController_FSM playerController) 
     {
-
+        
     }
 
     public override void Update(PlayerController_FSM playerController)
@@ -15,8 +15,8 @@ public class PlayerIdleState : PlayerBaseState
         running = walking && Input.GetButton("Run");
         jumping = Input.GetButton("Jump") && playerController.Grounded && playerController.JumpingEnabled;
     }
-    public override void FixedUpdate(PlayerController_FSM playerController)
-    {
+    public override void FixedUpdate(PlayerController_FSM playerController) 
+    { 
         // Action
         if (playerController.CurrentVelocity.magnitude > 0)
         {
@@ -28,18 +28,27 @@ public class PlayerIdleState : PlayerBaseState
     {
         // Transition to Falling State
         if (!grounded)
+        {
             playerController.TransitionToState(playerController.FallingState);
-
+        }
+        
         // Transition to Jumping State
         if (jumping) 
+        {
             playerController.TransitionToState(playerController.JumpingState);
+        }
 
         // Transition to Running State
-        else if (running) 
+        else if (running)
+        {
             playerController.TransitionToState(playerController.RunningState);
-
+        }
+            
         // Transition to Walking State
         else if (walking) 
+        {
             playerController.TransitionToState(playerController.WalkingState); 
+        }
+            
     }
 }

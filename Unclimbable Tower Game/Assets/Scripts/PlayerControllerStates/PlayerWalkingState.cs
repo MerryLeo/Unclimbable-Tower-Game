@@ -3,11 +3,7 @@ public class PlayerWalkingState : PlayerBaseState
 {
     Vector3 moveDirection;
     bool grounded, running, walking, jumping;
-    public override void EnterState(PlayerController_FSM playerController)
-    {
-        // Movement Direction
-        moveDirection = playerController.GetMovementInputs();
-    }
+    public override void EnterState(PlayerController_FSM playerController) { }
 
     public override void Update(PlayerController_FSM playerController)
     {

@@ -1,5 +1,6 @@
 // Camera rotation using mouse inputs
 
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
@@ -14,16 +15,21 @@ public class CameraController : MonoBehaviour
     [Range(0, 1.5f)] [SerializeField]
     float verticalSensitivty = 0.5f;
 
+    [SerializeField]
+    PlayerController_FSM controller;
+
     const float maxVerticalRotation = 80f;
     float mouseX, mouseY;
     new Camera camera;
     const float fovSpeed = 0.02f;
     float defaultFOV, currentFOV, targetFOV, count;
+    const float runningFov = 80f;
 
     // Start is called before the first frame update
     void Start()
     {
         camera = GetComponent<Camera>();
+        controller.StateChanged += OnPlayerStateChanged;
         count = 0;
         defaultFOV = currentFOV = targetFOV = camera.fieldOfView;
         CameraEnabled = true;
@@ -58,13 +64,22 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    public void SetFOV(float fov)
+    public void OnPlayerStateChanged(object sender, PlayerStateChangedEventArgs e)
+    {
+        if (e.NewState is PlayerRunningState)
+            SetFOV(runningFov);
+            
+        else if (e.PreviousState is PlayerRunningState)
+            ResetFOV();
+    }
+
+    void SetFOV(float fov)
     {
         targetFOV = fov;
         count = 0;
     }
 
-    public void ResetFOV()
+    void ResetFOV()
     {
         targetFOV = defaultFOV;
         count = 0;

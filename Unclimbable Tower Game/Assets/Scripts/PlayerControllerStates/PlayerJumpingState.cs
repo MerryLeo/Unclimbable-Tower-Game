@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerJumpingState : PlayerBaseState
@@ -42,10 +40,16 @@ public class PlayerJumpingState : PlayerBaseState
     {
         // Transition to Falling State
         if (falling)
+        {
             playerController.TransitionToState(playerController.FallingState);
+        }
 
         // Transition to Idle State
         else if (grounded)
+        {
+            playerController.JumpingCooldown();
             playerController.TransitionToState(playerController.IdleState);
+        }
+            
     }
 }

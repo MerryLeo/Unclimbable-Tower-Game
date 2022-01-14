@@ -10,17 +10,17 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - 
   - Water
   - UI
   - Unpickable
   - Post Processing
   - Holding
   - Player
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - Ground Grass
+  - Ground Stone
+  - Ground Brick
   - 
   - 
   - 

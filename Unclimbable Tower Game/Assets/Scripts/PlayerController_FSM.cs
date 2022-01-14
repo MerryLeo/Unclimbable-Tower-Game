@@ -1,5 +1,6 @@
 // Player controller that uses physics and a finite state machine to control an object
 
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -16,13 +17,13 @@ public class PlayerController_FSM : MonoBehaviour
 
     [Header("Movement Settings")]
     [SerializeField]
-    float walkSpeed = 60f;
+    float walkSpeed = 120f;
     [SerializeField]
-    float runSpeed = 120f;
+    float runSpeed = 180f;
     [SerializeField]
     float midairSpeed = 10f;
     [SerializeField]
-    float jumpForce = 250f;
+    float jumpForce = 450f;
 
     // States
     public PlayerBaseState CurrentState { get; private set; }
@@ -31,6 +32,8 @@ public class PlayerController_FSM : MonoBehaviour
     public readonly PlayerRunningState RunningState = new PlayerRunningState();
     public readonly PlayerJumpingState JumpingState = new PlayerJumpingState();
     public readonly PlayerFallingState FallingState = new PlayerFallingState();
+    public event EventHandler<PlayerStateChangedEventArgs> StateChanged;
+
 
     // Propreties
     public bool Grounded => Physics.CheckSphere(groundCheck.position, groundDst, groundMask);
@@ -39,11 +42,11 @@ public class PlayerController_FSM : MonoBehaviour
     public Vector3 CurrentVelocity => rbody.velocity;
     public bool JumpingEnabled { get; private set; } = true;
     public float Drag => 0.65f;
-    public float MidairDrag => 0.985f;
+    public float MidairDrag => 0.95f;
     public float HorizontalRunningFactor => 0.75f; // Decreases the horizontal movement speed of the player while he's running
     public float BackwardRunningFactor => 0.25f; // Decreases the backward movement speed of the player while he's running
 
-    public float RunningFOV => 80f;
+    // public float RunningFOV => 80f;
     public Transform CameraTransform { get; private set; }
     public CameraController CameraControllerScript { get; private set; }
 
@@ -85,6 +88,13 @@ public class PlayerController_FSM : MonoBehaviour
 
     public void TransitionToState(PlayerBaseState state) 
     {
+        // Raise an event to notify other scripts such as the player audio controller
+        EventHandler<PlayerStateChangedEventArgs> stateHandler = StateChanged;
+        PlayerStateChangedEventArgs args = new PlayerStateChangedEventArgs();
+        args.PreviousState = CurrentState;
+        args.NewState = state;
+        stateHandler?.Invoke(this, args);
+
         CurrentState = state;
         CurrentState.EnterState(this);
     }
@@ -107,9 +117,9 @@ public class PlayerController_FSM : MonoBehaviour
         return direction;
     }
 
-    // Drag must be a float between 0 and 1
-    public void ApplyDrag(float drag) 
-    { 
+    // Apply a drag only on the x-axis and z-axis
+    public void ApplyDrag(float drag)
+    {
         rbody.velocity = new Vector3(rbody.velocity.x * drag, rbody.velocity.y, rbody.velocity.z * drag);
     }
 
@@ -132,11 +142,11 @@ public class PlayerController_FSM : MonoBehaviour
 
     public void Jump() 
     {
-        JumpingCooldown();
+        // JumpingCooldown();
         rbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
-    async void JumpingCooldown() 
+    public async void JumpingCooldown() 
     {
         float end = Time.time + jumpCooldown;
         JumpingEnabled = false;
@@ -146,4 +156,10 @@ public class PlayerController_FSM : MonoBehaviour
         }
         JumpingEnabled = true;
     }
+}
+
+public class PlayerStateChangedEventArgs : EventArgs
+{
+    public PlayerBaseState NewState;
+    public PlayerBaseState PreviousState;
 }
