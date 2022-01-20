@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7075110}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,6 +296,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Two-sided Corner Platform (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2651051623880302706, guid: 30a3988294c74b3479ce9ce6b699a3e5, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 6469829960582042233, guid: 30a3988294c74b3479ce9ce6b699a3e5, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
@@ -316,7 +320,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 49918747}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Detail_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -545,6 +549,10 @@ PrefabInstance:
       value: Tree2 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 5172718773526547749, guid: b38aa83372caaaa4bb051422938f1ffa, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172718773526547749, guid: b38aa83372caaaa4bb051422938f1ffa, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -720,7 +728,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9181815078413463023, guid: 87ca5dc088e833943bea78a900ef9a81, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87ca5dc088e833943bea78a900ef9a81, type: 3}
@@ -889,6 +897,10 @@ PrefabInstance:
       value: RampWall
       objectReference: {fileID: 0}
     - target: {fileID: 2958042312527145650, guid: 7b7001bd205fad2459f87baf34c716bc, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958042312527145650, guid: 7b7001bd205fad2459f87baf34c716bc, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -966,6 +978,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Four-sided Wall (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6679891453922838370, guid: 5ca460c7bde2bef49ab0d554367235c6, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ca460c7bde2bef49ab0d554367235c6, type: 3}
 --- !u!4 &209750208 stripped
@@ -1031,6 +1047,10 @@ PrefabInstance:
     - target: {fileID: 8039597409507921505, guid: c793f260313654e4faa6a93be2f248f4, type: 3}
       propertyPath: m_Name
       value: Two-sided Wall Corner (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8039597409507921505, guid: c793f260313654e4faa6a93be2f248f4, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c793f260313654e4faa6a93be2f248f4, type: 3}
@@ -1442,6 +1462,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: One-sided Wall (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8323175317219466841, guid: 9ac63d29629faec4a926b2b4e847dee5, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ac63d29629faec4a926b2b4e847dee5, type: 3}
 --- !u!4 &451372936 stripped
@@ -1607,7 +1631,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 532082259}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Tower_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1640,6 +1664,10 @@ PrefabInstance:
     - target: {fileID: 5840505090083865749, guid: c7cc419d89fc02d40bb954b250669bff, type: 3}
       propertyPath: m_Name
       value: Tall Roof (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5840505090083865749, guid: c7cc419d89fc02d40bb954b250669bff, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7717297398392083713, guid: c7cc419d89fc02d40bb954b250669bff, type: 3}
       propertyPath: m_RootOrder
@@ -1771,6 +1799,10 @@ PrefabInstance:
     - target: {fileID: 679654549331125595, guid: 9bd2c70d64c30784099eac6c078e1bb8, type: 3}
       propertyPath: m_Name
       value: Rock2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 679654549331125595, guid: 9bd2c70d64c30784099eac6c078e1bb8, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 9096405036442239531, guid: 9bd2c70d64c30784099eac6c078e1bb8, type: 3}
       propertyPath: m_RootOrder
@@ -1954,6 +1986,10 @@ PrefabInstance:
     - target: {fileID: 8349976410497484378, guid: 178a63bfa2b55174f8e8848ee002bcba, type: 3}
       propertyPath: m_Name
       value: Tree3 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349976410497484378, guid: 178a63bfa2b55174f8e8848ee002bcba, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8349976410497484378, guid: 178a63bfa2b55174f8e8848ee002bcba, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -2213,6 +2249,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RampWall
       objectReference: {fileID: 0}
+    - target: {fileID: 2958042312527145650, guid: 7b7001bd205fad2459f87baf34c716bc, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 3359933294912230489, guid: 7b7001bd205fad2459f87baf34c716bc, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2238,6 +2278,10 @@ PrefabInstance:
     - target: {fileID: 2336625213769356396, guid: 079c6d7527ba97f47b56aaca14458467, type: 3}
       propertyPath: m_Name
       value: Tree1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336625213769356396, guid: 079c6d7527ba97f47b56aaca14458467, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2336625213769356396, guid: 079c6d7527ba97f47b56aaca14458467, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -2360,6 +2404,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Two-sided Wall Corner (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8039597409507921505, guid: c793f260313654e4faa6a93be2f248f4, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c793f260313654e4faa6a93be2f248f4, type: 3}
 --- !u!4 &684985032 stripped
@@ -2460,6 +2508,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Four-sided Wall (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6679891453922838370, guid: 5ca460c7bde2bef49ab0d554367235c6, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ca460c7bde2bef49ab0d554367235c6, type: 3}
 --- !u!4 &737273848 stripped
@@ -2477,6 +2529,10 @@ PrefabInstance:
     - target: {fileID: 4870501410896793715, guid: 87ae10f86be48b84099759b35eca2ddc, type: 3}
       propertyPath: m_Name
       value: Ground (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4870501410896793715, guid: 87ae10f86be48b84099759b35eca2ddc, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 8527605660360056581, guid: 87ae10f86be48b84099759b35eca2ddc, type: 3}
       propertyPath: m_RootOrder
@@ -2542,7 +2598,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 814320955}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2581,6 +2637,10 @@ PrefabInstance:
     - target: {fileID: 1328663718552693966, guid: 1b048a681e627cc47ad894b6f6c48392, type: 3}
       propertyPath: m_Name
       value: Octogon Roof
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328663718552693966, guid: 1b048a681e627cc47ad894b6f6c48392, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5063779897800049920, guid: 1b048a681e627cc47ad894b6f6c48392, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2705,6 +2765,10 @@ PrefabInstance:
       value: RampWall
       objectReference: {fileID: 0}
     - target: {fileID: 2958042312527145650, guid: 7b7001bd205fad2459f87baf34c716bc, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958042312527145650, guid: 7b7001bd205fad2459f87baf34c716bc, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -2779,6 +2843,10 @@ PrefabInstance:
       value: Tree2
       objectReference: {fileID: 0}
     - target: {fileID: 5172718773526547749, guid: b38aa83372caaaa4bb051422938f1ffa, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5172718773526547749, guid: b38aa83372caaaa4bb051422938f1ffa, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -2838,6 +2906,10 @@ PrefabInstance:
     - target: {fileID: 8241611605222642847, guid: a0b909f7aa8f1774ca248529c3ea1914, type: 3}
       propertyPath: m_Name
       value: Bench
+      objectReference: {fileID: 0}
+    - target: {fileID: 8241611605222642847, guid: a0b909f7aa8f1774ca248529c3ea1914, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0b909f7aa8f1774ca248529c3ea1914, type: 3}
@@ -3183,6 +3255,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RampWall (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2958042312527145650, guid: 7b7001bd205fad2459f87baf34c716bc, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 3359933294912230489, guid: 7b7001bd205fad2459f87baf34c716bc, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -3204,6 +3280,10 @@ PrefabInstance:
     - target: {fileID: 1205913870985956232, guid: 59ca87d82eefcd145b6e5ef968822c09, type: 3}
       propertyPath: m_Name
       value: Octogon Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205913870985956232, guid: 59ca87d82eefcd145b6e5ef968822c09, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4900810785388218016, guid: 59ca87d82eefcd145b6e5ef968822c09, type: 3}
       propertyPath: m_RootOrder
@@ -3286,6 +3366,10 @@ PrefabInstance:
     - target: {fileID: 2451027014634049670, guid: 94328a61b5139c4438f34fd173369367, type: 3}
       propertyPath: m_Name
       value: Boulder1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2451027014634049670, guid: 94328a61b5139c4438f34fd173369367, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5855609335806352865, guid: 94328a61b5139c4438f34fd173369367, type: 3}
       propertyPath: m_RootOrder
@@ -3887,6 +3971,10 @@ PrefabInstance:
       value: Tree3 (3)
       objectReference: {fileID: 0}
     - target: {fileID: 8349976410497484378, guid: 178a63bfa2b55174f8e8848ee002bcba, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349976410497484378, guid: 178a63bfa2b55174f8e8848ee002bcba, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -3978,6 +4066,10 @@ PrefabInstance:
       value: RampWall
       objectReference: {fileID: 0}
     - target: {fileID: 2958042312527145650, guid: 7b7001bd205fad2459f87baf34c716bc, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958042312527145650, guid: 7b7001bd205fad2459f87baf34c716bc, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -4048,6 +4140,10 @@ PrefabInstance:
       value: RampWall (1)
       objectReference: {fileID: 0}
     - target: {fileID: 2958042312527145650, guid: 7b7001bd205fad2459f87baf34c716bc, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958042312527145650, guid: 7b7001bd205fad2459f87baf34c716bc, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -4072,6 +4168,10 @@ PrefabInstance:
     - target: {fileID: 679654549331125595, guid: 9bd2c70d64c30784099eac6c078e1bb8, type: 3}
       propertyPath: m_Name
       value: Rock2 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 679654549331125595, guid: 9bd2c70d64c30784099eac6c078e1bb8, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 9096405036442239531, guid: 9bd2c70d64c30784099eac6c078e1bb8, type: 3}
       propertyPath: m_RootOrder
@@ -4249,6 +4349,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Two-sided Corner Platform (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2651051623880302706, guid: 30a3988294c74b3479ce9ce6b699a3e5, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 6469829960582042233, guid: 30a3988294c74b3479ce9ce6b699a3e5, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
@@ -4349,6 +4453,10 @@ PrefabInstance:
     - target: {fileID: 679654549331125595, guid: 9bd2c70d64c30784099eac6c078e1bb8, type: 3}
       propertyPath: m_Name
       value: Rock2
+      objectReference: {fileID: 0}
+    - target: {fileID: 679654549331125595, guid: 9bd2c70d64c30784099eac6c078e1bb8, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7692585636616788238, guid: 9bd2c70d64c30784099eac6c078e1bb8, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -4600,9 +4708,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2857978120925448721, guid: ace5e03c340a24f429a4eb66945c211e, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 3796657552084184966, guid: ace5e03c340a24f429a4eb66945c211e, type: 3}
       propertyPath: m_Name
       value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 3796657552084184966, guid: ace5e03c340a24f429a4eb66945c211e, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633299366956053187, guid: ace5e03c340a24f429a4eb66945c211e, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ace5e03c340a24f429a4eb66945c211e, type: 3}
@@ -4660,6 +4780,10 @@ PrefabInstance:
     - target: {fileID: 2651051623880302706, guid: 30a3988294c74b3479ce9ce6b699a3e5, type: 3}
       propertyPath: m_Name
       value: Two-sided Corner Platform (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2651051623880302706, guid: 30a3988294c74b3479ce9ce6b699a3e5, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6469829960582042233, guid: 30a3988294c74b3479ce9ce6b699a3e5, type: 3}
       propertyPath: m_Materials.Array.data[1]
@@ -4907,7 +5031,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1673517525}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4943,6 +5067,10 @@ PrefabInstance:
     - target: {fileID: 1328663718552693966, guid: 1b048a681e627cc47ad894b6f6c48392, type: 3}
       propertyPath: m_Name
       value: Octogon Roof
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328663718552693966, guid: 1b048a681e627cc47ad894b6f6c48392, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5063779897800049920, guid: 1b048a681e627cc47ad894b6f6c48392, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5020,7 +5148,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1709123667}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Tower_C
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5101,6 +5229,10 @@ PrefabInstance:
     - target: {fileID: 8060907694261613982, guid: 1866c4ebf271032409f4a86e1d999dd5, type: 3}
       propertyPath: m_Name
       value: Barrel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8060907694261613982, guid: 1866c4ebf271032409f4a86e1d999dd5, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1866c4ebf271032409f4a86e1d999dd5, type: 3}
@@ -5496,6 +5628,10 @@ PrefabInstance:
       value: Tree3
       objectReference: {fileID: 0}
     - target: {fileID: 8349976410497484378, guid: 178a63bfa2b55174f8e8848ee002bcba, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349976410497484378, guid: 178a63bfa2b55174f8e8848ee002bcba, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -5515,6 +5651,10 @@ PrefabInstance:
     - target: {fileID: 2451027014634049670, guid: 94328a61b5139c4438f34fd173369367, type: 3}
       propertyPath: m_Name
       value: Boulder1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2451027014634049670, guid: 94328a61b5139c4438f34fd173369367, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5855609335806352865, guid: 94328a61b5139c4438f34fd173369367, type: 3}
       propertyPath: m_RootOrder
@@ -5572,6 +5712,10 @@ PrefabInstance:
     - target: {fileID: 679654549331125595, guid: 9bd2c70d64c30784099eac6c078e1bb8, type: 3}
       propertyPath: m_Name
       value: Rock2 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 679654549331125595, guid: 9bd2c70d64c30784099eac6c078e1bb8, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 9096405036442239531, guid: 9bd2c70d64c30784099eac6c078e1bb8, type: 3}
       propertyPath: m_RootOrder
@@ -5707,7 +5851,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1929015839}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Detail_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5820,6 +5964,10 @@ PrefabInstance:
     - target: {fileID: 5840505090083865749, guid: c7cc419d89fc02d40bb954b250669bff, type: 3}
       propertyPath: m_Name
       value: Tall Roof (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5840505090083865749, guid: c7cc419d89fc02d40bb954b250669bff, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7717297398392083713, guid: c7cc419d89fc02d40bb954b250669bff, type: 3}
       propertyPath: m_RootOrder
@@ -5939,6 +6087,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: One-sided Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 8323175317219466841, guid: 9ac63d29629faec4a926b2b4e847dee5, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ac63d29629faec4a926b2b4e847dee5, type: 3}
 --- !u!4 &1982161179 stripped
@@ -6018,6 +6170,10 @@ PrefabInstance:
       value: Tree3 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 8349976410497484378, guid: 178a63bfa2b55174f8e8848ee002bcba, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349976410497484378, guid: 178a63bfa2b55174f8e8848ee002bcba, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -6033,6 +6189,10 @@ PrefabInstance:
     - target: {fileID: 1205913870985956232, guid: 59ca87d82eefcd145b6e5ef968822c09, type: 3}
       propertyPath: m_Name
       value: Octogon Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205913870985956232, guid: 59ca87d82eefcd145b6e5ef968822c09, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4900810785388218016, guid: 59ca87d82eefcd145b6e5ef968822c09, type: 3}
       propertyPath: m_RootOrder
@@ -6243,7 +6403,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2046479338}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Tower_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6345,6 +6505,10 @@ PrefabInstance:
     - target: {fileID: 3430290411791472501, guid: 5a00b55fd86a9cc40aca71309424f95a, type: 3}
       propertyPath: m_Name
       value: Boulder2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3430290411791472501, guid: 5a00b55fd86a9cc40aca71309424f95a, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5491512076697250592, guid: 5a00b55fd86a9cc40aca71309424f95a, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -6480,7 +6644,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2125039932}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Platform_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6650,6 +6814,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Two-sided Wall Corner
       objectReference: {fileID: 0}
+    - target: {fileID: 8039597409507921505, guid: c793f260313654e4faa6a93be2f248f4, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c793f260313654e4faa6a93be2f248f4, type: 3}
 --- !u!4 &2517008546571771065 stripped
@@ -6672,6 +6840,10 @@ PrefabInstance:
     - target: {fileID: 1328663718552693966, guid: 1b048a681e627cc47ad894b6f6c48392, type: 3}
       propertyPath: m_Name
       value: Octogon Roof
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328663718552693966, guid: 1b048a681e627cc47ad894b6f6c48392, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5063779897800049920, guid: 1b048a681e627cc47ad894b6f6c48392, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -6749,6 +6921,10 @@ PrefabInstance:
     - target: {fileID: 4879512671357728167, guid: 0fe922a5e4c72994ca0f67a7f594963c, type: 3}
       propertyPath: m_Name
       value: One-sided Platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879512671357728167, guid: 0fe922a5e4c72994ca0f67a7f594963c, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5729672014557397803, guid: 0fe922a5e4c72994ca0f67a7f594963c, type: 3}
       propertyPath: m_RootOrder
@@ -6873,6 +7049,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Octogon Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 1205913870985956232, guid: 59ca87d82eefcd145b6e5ef968822c09, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 4900810785388218016, guid: 59ca87d82eefcd145b6e5ef968822c09, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -6993,6 +7173,10 @@ PrefabInstance:
     - target: {fileID: 2651051623880302706, guid: 30a3988294c74b3479ce9ce6b699a3e5, type: 3}
       propertyPath: m_Name
       value: Two-sided Corner Platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 2651051623880302706, guid: 30a3988294c74b3479ce9ce6b699a3e5, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6469829960582042233, guid: 30a3988294c74b3479ce9ce6b699a3e5, type: 3}
       propertyPath: m_Materials.Array.data[1]

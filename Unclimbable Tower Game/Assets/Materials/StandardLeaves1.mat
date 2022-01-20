@@ -67,7 +67,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
-    - _Illumination: 2.6
+    - _Illumination: 3.24
     - _MaxHeight: 14.71
     - _Metallic: 0
     - _MinHeight: 0.09
