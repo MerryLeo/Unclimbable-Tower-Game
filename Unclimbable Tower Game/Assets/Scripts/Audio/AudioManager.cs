@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -39,8 +38,7 @@ public class GroundSound
 [System.Serializable]
 public class PropSound
 {
-    public Sound LandSound;
-    public Sound ThrownSound;
+    public Sound CollisionSound;
     public int Mask;
 }
 

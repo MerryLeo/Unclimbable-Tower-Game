@@ -6207,30 +6207,18 @@ MonoBehaviour:
       pitch: 1
     Mask: 13
   propAudios:
-  - LandSound:
+  - CollisionSound:
       clip: {fileID: 8300000, guid: a967f92e38352bb4291945423de63499, type: 3}
       volume: 1
       pitch: 1
-    ThrownSound:
-      clip: {fileID: 8300000, guid: f2bc9c36f73ea50419060ec6eb40c246, type: 3}
-      volume: 1
-      pitch: 1
     Mask: 11
-  - LandSound:
+  - CollisionSound:
       clip: {fileID: 8300000, guid: b796f7e3b1a4d7344b7ee8d6c077a68f, type: 3}
       volume: 1
       pitch: 1
-    ThrownSound:
-      clip: {fileID: 8300000, guid: 1f080a1e65d584c4ca3e3c75fbb406b3, type: 3}
-      volume: 1
-      pitch: 1
     Mask: 12
-  - LandSound:
+  - CollisionSound:
       clip: {fileID: 8300000, guid: c86476186f357d44eb470d68a2986520, type: 3}
-      volume: 1
-      pitch: 1
-    ThrownSound:
-      clip: {fileID: 8300000, guid: f65b8caedf0c89b4c9f6ea1408f5e362, type: 3}
       volume: 1
       pitch: 1
     Mask: 13
@@ -7138,6 +7126,10 @@ PrefabInstance:
       value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 5200966827170550555, guid: fae93d596c82fe24291acc6af2709939, type: 3}
+      propertyPath: m_StitchLightmapSeams
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200966827170550555, guid: fae93d596c82fe24291acc6af2709939, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: d5acfe69c7f5253439af33ee5e73f938, type: 2}
@@ -7562,6 +7554,10 @@ PrefabInstance:
     - target: {fileID: 2207150461208904119, guid: b38aa83372caaaa4bb051422938f1ffa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -55.404
+      objectReference: {fileID: 0}
+    - target: {fileID: 3107166916001499846, guid: b38aa83372caaaa4bb051422938f1ffa, type: 3}
+      propertyPath: m_Convex
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3191474655345042130, guid: b38aa83372caaaa4bb051422938f1ffa, type: 3}
       propertyPath: m_Materials.Array.data[1]

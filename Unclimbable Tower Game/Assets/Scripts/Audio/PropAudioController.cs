@@ -2,48 +2,30 @@ using UnityEngine;
 using System.Linq;
 
 [RequireComponent(typeof(PickableObject))]
-[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Rigidbody))]
 public class PropAudioController : MonoBehaviour
 {
-    PropSound propSound;
-    AudioSource source;
-    PickableObject objScript;
+    AudioManager manager;
     Rigidbody rbody;
-    const float minVol = 0.05f, maxVol = 1f;
-    const float maxSpeedThreshold = 4f;
-    const float maxDst = 10f;
+    const float minVol = 0.02f, maxVol = 1f;
+    const float maxSpeedThreshold = 0.5f;
 
     // Start is called before the first frame update
     void Start()
     {
-        source = GetComponent<AudioSource>();
+        manager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         rbody = GetComponent<Rigidbody>();
-        propSound = GameObject.Find("AudioManager").GetComponent<AudioManager>().PropAudios.FirstOrDefault<PropSound>(x => x.Mask == gameObject.layer);
-        objScript = GetComponent<PickableObject>();
-        source.loop = false;
-        source.maxDistance = maxDst;
-        source.spatialBlend = 1;
     }
 
     void OnCollisionEnter(Collision other) 
     {
-        if (objScript.CurrentState is ObjectState.THROWN)
+        for (int i = 0; i < other.contactCount; i++)
         {
-            PlaySoundOnce(propSound.ThrownSound);
-        }
-        else
-        {
-            PlaySoundOnce(propSound.LandSound);
+            ContactPoint contact = other.GetContact(i);
+            float speed = Mathf.Abs(Vector3.Dot(rbody.velocity, (contact.point - transform.position).normalized));
+            float volume = (speed <= maxSpeedThreshold) ? UtilityClass.Remap(speed, 0, maxSpeedThreshold, minVol, maxVol) : maxVol;
+            PropSound sound = manager.PropAudios.FirstOrDefault<PropSound>(x => x.Mask == contact.otherCollider.gameObject.layer);
+            AudioSource.PlayClipAtPoint(sound.CollisionSound.clip, contact.point, volume);
         }
     }
-
-    void PlaySoundOnce(Sound sound)
-    {
-        float speed = rbody.velocity.magnitude;
-        // source.volume = (speed <= maxSpeedThreshold) ? UtilityClass.Remap(speed, 0, maxSpeedThreshold, minVol, maxVol) : maxVol;
-        source.pitch = sound.pitch;
-        source.PlayOneShot(sound.clip);
-    }
-
 }
