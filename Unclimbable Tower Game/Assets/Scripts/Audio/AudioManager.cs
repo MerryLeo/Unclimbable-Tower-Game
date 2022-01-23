@@ -10,10 +10,8 @@ public class AudioManager : MonoBehaviour
     [Header("Prop Audio Settings")]
     [SerializeField]
     PropSound[] propAudios;
-
     public GroundSound[] GroundAudios => groundAudios;
     public PropSound[] PropAudios => propAudios;
-
     AudioSource source;
 
     // Start is called before the first frame update

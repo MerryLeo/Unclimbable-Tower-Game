@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8107651658444596267}
   - component: {fileID: 5200966827170550555}
   - component: {fileID: 4677281320426512711}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Four-sided Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,8 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 767680b65b473c34eae157c7e01761ae, type: 2}
-  - {fileID: 2100000, guid: 62f3ddba819fe1848bfad1775d83001c, type: 2}
+  - {fileID: 2100000, guid: a20d6ed2b783ad342b68bfabb0a05760, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
