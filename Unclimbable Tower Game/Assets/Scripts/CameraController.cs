@@ -6,9 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class CameraController : MonoBehaviour
 {
-    [HideInInspector]
-    public bool CameraEnabled;
-
     [Header("Mouse Settings")]
     [Range(0, 1.5f)] [SerializeField]
     float horizontalSensitivty = 0.5f;
@@ -17,6 +14,7 @@ public class CameraController : MonoBehaviour
 
     [SerializeField]
     PlayerController_FSM controller;
+    GameManager manager;
 
     const float maxVerticalRotation = 80f;
     float mouseX, mouseY;
@@ -24,6 +22,7 @@ public class CameraController : MonoBehaviour
     const float fovSpeed = 0.02f;
     float defaultFOV, currentFOV, targetFOV, count;
     const float runningFov = 80f;
+    bool active;
 
     // Start is called before the first frame update
     void Start()
@@ -32,14 +31,21 @@ public class CameraController : MonoBehaviour
         controller.StateChanged += OnPlayerStateChanged;
         count = 0;
         defaultFOV = currentFOV = targetFOV = camera.fieldOfView;
-        CameraEnabled = true;
+        active = true;
         Cursor.lockState = CursorLockMode.Locked;
+
+        // Add Listeners to the Game Manager
+        manager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        manager.PauseEvent += OnGamePaused;
+        manager.GameOverEvent += OnGamePaused;
+        manager.WonEvent += OnGamePaused;
+        manager.ResumeEvent += OnGameResumed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (CameraEnabled)
+        if (active)
         {
             // Rotate the camera
             mouseX = Input.GetAxis("Mouse X") * horizontalSensitivty;
@@ -64,6 +70,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    // Change Player FOV when Running
     public void OnPlayerStateChanged(object sender, PlayerStateChangedEventArgs e)
     {
         if (e.NewState is PlayerRunningState)
@@ -83,5 +90,17 @@ public class CameraController : MonoBehaviour
     {
         targetFOV = defaultFOV;
         count = 0;
+    }
+
+    void OnGamePaused(object sender, EventArgs e)
+    {
+        active = false;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    void OnGameResumed(object sender, EventArgs e)
+    {
+        active = true;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

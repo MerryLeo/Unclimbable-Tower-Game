@@ -1,4 +1,4 @@
-// Disables this game object when the player leaves its collider and starts the timer
+// Disables this game object when the player leaves its collider
 
 using UnityEngine;
 
@@ -26,10 +26,10 @@ public class SpawnArea : MonoBehaviour
         mat.SetFloat("_Opacity", dst);
     }
 
-    void OnTriggerExit(Collider other) {
+    void OnTriggerExit(Collider other) 
+    {
         if (other.tag == playerTag)
         {
-            timer.StartTimer();
             gameObject.SetActive(false);
         }
     }
