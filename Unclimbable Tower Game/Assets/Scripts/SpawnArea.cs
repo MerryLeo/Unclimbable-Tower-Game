@@ -1,36 +1,34 @@
 // Disables this game object when the player leaves its collider
 
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Material))]
-public class SpawnArea : MonoBehaviour
-{
-    const string playerTag = "Player";
-    GameObject playerObj;
-    Timer timer;
-    Material mat;
+public class SpawnArea : MonoBehaviour {
+    public event EventHandler PlayerOutOfSpawnEvent;
+    GameObject _playerObj;
+    Material _mat;
+    const string _playerTag = "Player";
 
     // Start is called before the first frame update
-    void Start()
-    {
-        timer = GameObject.Find("Timer").GetComponentInChildren<Timer>();
-        playerObj = GameObject.Find("Player");
-        mat = GetComponent<Renderer>().sharedMaterial;
+    void Start() {
+        _playerObj = GameObject.FindGameObjectWithTag(_playerTag);
+        _mat = GetComponent<Renderer>().sharedMaterial;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        float dst = Vector3.Distance(playerObj.transform.position, gameObject.transform.position);
-        mat.SetFloat("_Opacity", dst);
+    // Material Opacity with Player Distance from its center
+    void Update() {
+        float dst = Vector3.Distance(_playerObj.transform.position, gameObject.transform.position);
+        _mat.SetFloat("_Opacity", dst);
     }
 
-    void OnTriggerExit(Collider other) 
-    {
-        if (other.tag == playerTag)
-        {
+    // Raise PlayerOutOfSpawnEvent
+    void OnTriggerExit(Collider other) {
+        if (other.tag == _playerTag) {
             gameObject.SetActive(false);
+            EventHandler handler = PlayerOutOfSpawnEvent;
+            handler?.Invoke(this, EventArgs.Empty);
         }
     }
 }

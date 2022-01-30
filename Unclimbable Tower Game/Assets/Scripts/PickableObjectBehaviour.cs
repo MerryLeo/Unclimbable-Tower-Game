@@ -32,15 +32,14 @@ public class PickableObjectBehaviour : MonoBehaviour
     Material _material;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        // Setup the curve
+    void Start() {
+        // Setup Animation Curve
         _curve = new AnimationCurve();
         _curve.AddKey(new Keyframe(0, 1, 0, 0));
         _curve.AddKey(new Keyframe(1, 1, 0, 0));
         _curve.AddKey(new Keyframe(0.5f, -1, 0, 0));
 
-        // Get components for the object's light and material
+        // Get components for object's light and material
         _light = GetComponentInChildren<Light>();
         _material = GetComponent<Renderer>().material;
 
@@ -51,8 +50,7 @@ public class PickableObjectBehaviour : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         // Value on the animation curve remaped to 0 and 1
         _curveValueRemaped = UtilityClass.Remap(_curve.Evaluate(_animationTime), -1f, 1, 0f, 1f);
 

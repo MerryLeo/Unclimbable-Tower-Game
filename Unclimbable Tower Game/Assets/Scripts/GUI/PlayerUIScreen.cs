@@ -1,90 +1,101 @@
+// Script to change UI panels visibility and configure a Timer
+
 using System;
 using UnityEngine;
 
-public class PlayerUIScreen : MonoBehaviour
-{
+public class PlayerUIScreen : MonoBehaviour {
     // UI Elements
     [Header("UI Game Objects")]
     [SerializeField]
-    GameObject crosshairObj;
+    GameObject _crosshairObj;
     [SerializeField]
-    GameObject timerObj;
+    GameObject _timerObj;
     [SerializeField]
-    GameObject pauseScreenObj;
+    GameObject _pauseScreenObj;
     [SerializeField]
-    GameObject optionScreenObj;
+    GameObject _optionScreenObj;
     [SerializeField]
-    GameObject winScreenObj;
+    GameObject _winScreenObj;
     [SerializeField]
-    GameObject gameOverScreenObj;
+    GameObject _gameOverScreenObj;
 
     [SerializeField]
-    Timer timer;
+    Timer _timer;
 
-    GameManager manager;
+    SpawnArea _spawn;
+    GameManager _manager;
+    const string _spawnTag = "SpawnArea", _gameManagerName = "GameManager";
 
     // Start is called before the first frame update
-    void Start()
-    {
-        // Find Manager and Add Listeners
-        manager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        manager.PauseEvent += OnGamePaused;
-        manager.ResumeEvent += OnGameResumed;
-        manager.WonEvent += OnGameWon;
-        manager.GameOverEvent += OnGameOver;
+    void Start() {
+        // Add Listeners to Game Manager
+        _manager = GameObject.Find(_gameManagerName).GetComponent<GameManager>();
+        _manager.PauseEvent += OnGamePaused;
+        _manager.ResumeEvent += OnGameResumed;
+        _manager.WonEvent += OnGameWon;
+        _manager.GameOverEvent += OnGameOver;
+
+        // Add Listener to Spawn Area
+        _spawn = GameObject.FindGameObjectWithTag(_spawnTag).GetComponent<SpawnArea>();
+        _spawn.PlayerOutOfSpawnEvent += OnPlayerOutOfSpawn;
 
         // Initial UI Configuration
-        winScreenObj.SetActive(false);
-        pauseScreenObj.SetActive(false);
-        crosshairObj.SetActive(true);
-        gameOverScreenObj.SetActive(false);
+        _winScreenObj.SetActive(false);
+        _pauseScreenObj.SetActive(false);
+        _crosshairObj.SetActive(true);
+        _gameOverScreenObj.SetActive(false);
     }
 
-    void OnGamePaused(object sender, EventArgs e)
-    {
-        // Timer
-        timer.StopTimer();
-
-        // UI Configuration
-        winScreenObj.SetActive(false);
-        pauseScreenObj.SetActive(true);
-        crosshairObj.SetActive(false);
-        gameOverScreenObj.SetActive(false);
+    void OnPlayerOutOfSpawn(object sender, EventArgs e) {
+        _timer.InitializeTimer();
+        _timer.StartTimer();
     }
 
-    void OnGameResumed(object sender, EventArgs e)
-    {
+    void OnGamePaused(object sender, EventArgs e) {
         // Timer
-        timer.StartTimer();
+        if (_timer.Initialised)
+            _timer.StartTimer();
 
         // UI Configuration
-        winScreenObj.SetActive(false);
-        pauseScreenObj.SetActive(false);
-        crosshairObj.SetActive(true);
-        gameOverScreenObj.SetActive(false);
+        _winScreenObj.SetActive(false);
+        _pauseScreenObj.SetActive(true);
+        _crosshairObj.SetActive(false);
+        _gameOverScreenObj.SetActive(false);
     }
 
-    void OnGameWon(object sender, EventArgs e)
-    {
+    void OnGameResumed(object sender, EventArgs e) {
         // Timer
-        timer.StopTimer();
+        if (_timer.Initialised)
+            _timer.StartTimer();
 
         // UI Configuration
-        winScreenObj.SetActive(true);
-        pauseScreenObj.SetActive(false);
-        crosshairObj.SetActive(false);
-        gameOverScreenObj.SetActive(false);
+        _winScreenObj.SetActive(false);
+        _pauseScreenObj.SetActive(false);
+        _crosshairObj.SetActive(true);
+        _gameOverScreenObj.SetActive(false);
     }
 
-    void OnGameOver(object sender, EventArgs e)
-    {
+    void OnGameWon(object sender, EventArgs e) {
         // Timer
-        timer.StopTimer();
+        if (_timer.Initialised)
+            _timer.StartTimer();
 
         // UI Configuration
-        winScreenObj.SetActive(false);
-        pauseScreenObj.SetActive(false);
-        crosshairObj.SetActive(false);
-        gameOverScreenObj.SetActive(true);
+        _winScreenObj.SetActive(true);
+        _pauseScreenObj.SetActive(false);
+        _crosshairObj.SetActive(false);
+        _gameOverScreenObj.SetActive(false);
+    }
+
+    void OnGameOver(object sender, EventArgs e) {
+        // Timer
+        if (_timer.Initialised)
+            _timer.StartTimer();
+
+        // UI Configuration
+        _winScreenObj.SetActive(false);
+        _pauseScreenObj.SetActive(false);
+        _crosshairObj.SetActive(false);
+        _gameOverScreenObj.SetActive(true);
     }
 }

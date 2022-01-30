@@ -15,10 +15,10 @@ GameObject:
   - component: {fileID: 1210953116776348304}
   m_Layer: 1
   m_Name: SpawnArea
-  m_TagString: Untagged
+  m_TagString: SpawnArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5898701073484833399
 Transform:

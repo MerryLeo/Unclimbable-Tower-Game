@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pickup
   - Unpickable
+  - SpawnArea
   layers:
   - Default
   - TransparentFX

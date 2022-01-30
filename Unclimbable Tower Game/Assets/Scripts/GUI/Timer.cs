@@ -1,60 +1,57 @@
-// Countdown
+// Count down script that modifies a text component
 
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Text))]
 public class Timer : MonoBehaviour {
-    Text timerText;
-    GameManager gameManager;
-    float startTime, time;
-    bool active, outOfTime;
+    public bool Initialised { get; private set; }
+    Text _timerText;
+    GameManager _manager;
+    float _startTime, _time;
+    bool _active, _outOfTime;
 
     // Start is called before the first frame update
     void Start() {
-        timerText = GetComponent<Text>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        InitializeTimer();
+        _timerText = GetComponent<Text>();
+        _manager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _active = false;
+        Initialised = false;
     }
 
     // Update is called once per frame
-    void Update() 
-    {
-        if (active) 
-        {
-            int minute = (int)(time - (Time.time - startTime)/60f);
-            int second = (int)(60f * (time - minute - (Time.time - startTime)/60f));
+    void Update() {
+        if (_active) {
+            int minute = (int)(_time - (Time.time - _startTime)/60f);
+            int second = (int)(60f * (_time - minute - (Time.time - _startTime)/60f));
             if (minute > 0) 
-                timerText.text = $"{minute}min{second}";
+                _timerText.text = $"{minute}min{second}";
             
             else if (second > 0) 
-                timerText.text = $"{second}s";
+                _timerText.text = $"{second}s";
             
-            else 
-            {
-                timerText.text = "Time's up!";
-                outOfTime = true;
+            else {
+                _timerText.text = "Time's up!";
+                _outOfTime = true;
             }
         }
 
-        if (outOfTime)
-            gameManager?.GameOver();
+        if (_outOfTime)
+            _manager?.GameOver();
     }
 
-    public void StartTimer() 
-    {
-        active = true;
+    public void StartTimer() {
+        _active = true;
     }
 
-    public void StopTimer() 
-    {
-        active = false;
+    public void StopTimer() {
+        _active = false;
     }
 
-    public void InitializeTimer() 
-    {
-        outOfTime = false;
-        startTime = Time.time;
-        time = gameManager.LevelTime;
+    public void InitializeTimer() {
+        Initialised = true;
+        _outOfTime = false;
+        _startTime = Time.time;
+        _time = _manager.LevelTime;
     }
 }

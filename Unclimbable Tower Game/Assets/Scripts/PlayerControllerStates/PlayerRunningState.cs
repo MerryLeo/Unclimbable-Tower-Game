@@ -1,64 +1,45 @@
 using UnityEngine;
 public class PlayerRunningState : PlayerBaseState
 {
-    Vector3 moveDirection;
-    bool grounded, jumping, walking, running;
-    public override void EnterState(PlayerController_FSM playerController)
-    {
-        // Change the camera FOV
-        // playerController.CameraControllerScript.SetFOV(playerController.RunningFOV);
-    }
-    public override void Update(PlayerController_FSM playerController)
-    {
+    Vector3 _moveDirection;
+    bool _grounded, _jumping, _walking, _running;
+    const string _verticalAxisName = "Vertical", _horizontalAxisName = "Horizontal";
+    const string _runInput = "Run", _jumpInput = "Jump";
+    public override void EnterState(PlayerController_FSM playerController) { }
+    public override void Update(PlayerController_FSM playerController) {
         // Movement Direction
-        float verticalAxis = Input.GetAxis("Vertical");
-        float horizontalAxis = Input.GetAxis("Horizontal");
-        moveDirection = playerController.GetMovementInputs(playerController.HorizontalRunningFactor, 1);
+        float verticalAxis = Input.GetAxis(_verticalAxisName);
+        float horizontalAxis = Input.GetAxis(_horizontalAxisName);
+        _moveDirection = playerController.GetMovementInputs(playerController.HorizontalRunningFactor, 1);
 
         // Booleans
-        grounded = playerController.Grounded;
-        walking = moveDirection.magnitude > 0 && !Input.GetButton("Run");
-        running = moveDirection.magnitude > 0 && Input.GetButton("Run");
-        jumping = Input.GetButton("Jump") && playerController.Grounded && playerController.JumpingEnabled;
+        _grounded = playerController.Grounded;
+        _walking = _moveDirection.magnitude > 0 && !Input.GetButton(_runInput);
+        _running = _moveDirection.magnitude > 0 && Input.GetButton(_runInput);
+        _jumping = Input.GetButton(_jumpInput) && playerController.Grounded && playerController.JumpingEnabled;
     }
 
-    public override void FixedUpdate(PlayerController_FSM playerController)
-    {
+    public override void FixedUpdate(PlayerController_FSM playerController) {
         // Actions
-        playerController.Run(moveDirection);
+        playerController.Run(_moveDirection);
         playerController.ApplyDrag(playerController.Drag);
     }
 
-    public override void LateUpdate(PlayerController_FSM playerController)
-    {
+    public override void LateUpdate(PlayerController_FSM playerController) {
         // Transition to Falling State
-        if (!grounded)
-        {
+        if (!_grounded) 
             playerController.TransitionToState(playerController.FallingState);
-            // playerController.CameraControllerScript.ResetFOV();
-        }   
 
         // Transition to Jumping State
-        else if (jumping)
-        {
+        else if (_jumping) 
             playerController.TransitionToState(playerController.JumpingState);
-            // playerController.CameraControllerScript.ResetFOV();
-        }
-
-        // Transition to Walking State
-        else if (walking)
-        {
-            playerController.TransitionToState(playerController.WalkingState);
-            // playerController.CameraControllerScript.ResetFOV();
-        }
             
+        // Transition to Walking State
+        else if (_walking)
+            playerController.TransitionToState(playerController.WalkingState);
+        
         // Transition to Idle State
-        else if (!running)
-        {
+        else if (!_running)
             playerController.TransitionToState(playerController.IdleState);
-            // playerController.CameraControllerScript.ResetFOV();
-        }
     }
-
-
 }

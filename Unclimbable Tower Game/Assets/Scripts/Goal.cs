@@ -1,20 +1,19 @@
+// Goal of the game
+
 using UnityEngine;
 
-public class Goal : MonoBehaviour
-{
-    GameManager gameManager;
-
-    void Start()
-    {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+public class Goal : MonoBehaviour {
+    GameManager _gameManager;
+    const string _playerTag = "Player", _gameManagerName = "GameManager";
+    void Start() {
+        _gameManager = GameObject.Find(_gameManagerName).GetComponent<GameManager>();
     }
 
-    void OnTriggerEnter(Collider collider)
-    {
-        if (collider.gameObject.tag == "Player")
-        {
+    // Call Win if the player touches this object
+    void OnTriggerEnter(Collider collider) {
+        if (collider.gameObject.tag == _playerTag) {
             gameObject.SetActive(false);
-            gameManager.Win();
+            _gameManager.Win();
         }
     }
 }

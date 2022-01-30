@@ -1,55 +1,48 @@
 using UnityEngine;
+using System.Threading.Tasks;
 
-public class PlayerJumpingState : PlayerBaseState
-{
-    Vector3 moveDirection;
-    const float cooldown = 0.05f;
-    bool falling, grounded, checkIfFalling;
-    float time;
-    public override void EnterState(PlayerController_FSM playerController)
-    {
+public class PlayerJumpingState : PlayerBaseState {
+    Vector3 _moveDirection;
+    const float _fallingCooldown = 0.05f;
+    bool _falling, _grounded, _checkIfFalling;
+
+    public override void EnterState(PlayerController_FSM playerController) {
         // Initial Action
         playerController.Jump();
-
-        // Time Stamp
-        checkIfFalling = false;
-        time = Time.time + cooldown;
+        FallingCooldown();
     }
 
-    public override void Update(PlayerController_FSM playerController)
-    {
+    public override void Update(PlayerController_FSM playerController) {
         // Movement Direction
-        moveDirection = playerController.GetMovementInputs();
-
-        // Cooldown
-        if (Time.time >= time)
-            checkIfFalling = true;
+        _moveDirection = playerController.GetMovementInputs();
 
         // Boolean
-        falling = playerController.RigidBodyIsFalling && checkIfFalling;
-        grounded = playerController.Grounded && !playerController.RigidBodyIsFalling && !playerController.RigidBodyIsRising;
+        _falling = playerController.RigidBodyIsFalling && _checkIfFalling;
+        _grounded = playerController.Grounded && !playerController.RigidBodyIsFalling && !playerController.RigidBodyIsRising;
     }
-    public override void FixedUpdate(PlayerController_FSM playerController)
-    {
+    public override void FixedUpdate(PlayerController_FSM playerController) {
         // Action
-        playerController.MoveMidair(moveDirection);
+        playerController.MoveMidair(_moveDirection);
         playerController.ApplyDrag(playerController.MidairDrag);
     }
 
-    public override void LateUpdate(PlayerController_FSM playerController)
-    {
-        // Transition to Falling State
-        if (falling)
-        {
+    public override void LateUpdate(PlayerController_FSM playerController) {
+        if (_falling) // Transition to Falling State
             playerController.TransitionToState(playerController.FallingState);
-        }
-
-        // Transition to Idle State
-        else if (grounded)
-        {
+        
+        else if (_grounded) { // Transition to Idle State
             playerController.JumpingCooldown();
             playerController.TransitionToState(playerController.IdleState);
         }
-            
+    }
+
+    // Can Transition to falling state after this cooldown
+    async void FallingCooldown() {
+        _checkIfFalling = false;
+        float endTime = Time.time + _fallingCooldown;
+        while (Time.time < endTime) {
+            await Task.Yield();
+        }
+        _checkIfFalling = true;
     }
 }

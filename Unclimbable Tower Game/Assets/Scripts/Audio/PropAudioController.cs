@@ -1,34 +1,34 @@
+// Script to play sound when an object hits something
+// This script must be on the object
+
 using UnityEngine;
 using System.Linq;
 
 [RequireComponent(typeof(PickableObject))]
 [RequireComponent(typeof(Rigidbody))]
-public class PropAudioController : MonoBehaviour
-{
-    AudioManager manager;
-    Rigidbody rbody;
-    const float minVol = 0.02f, maxVol = 1f;
-    const float maxSpeedThreshold = 0.3f;
+public class PropAudioController : MonoBehaviour {
+    AudioManager _audioManager; // Contains different audios assosiated with a layer each
+    Rigidbody _rbody;
+    const float _minVol = 0.02f, _maxVol = 1f;
+    const float _maxSpeedThreshold = 0.3f;
+    const string _audioManagerName = "AudioManager";
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        manager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
-        rbody = GetComponent<Rigidbody>();
+    // Get Basic Components
+    void Start() {
+        _audioManager = GameObject.Find(_audioManagerName).GetComponent<AudioManager>();
+        _rbody = GetComponent<Rigidbody>();
     }
 
-    void OnCollisionEnter(Collision other) 
-    {
-        // Play Sound from Point of Contact
-        if (other != null) 
-        {
-            for (int i = 0; i < other.contactCount; i++)
-            {
+    // Play Sound when in contact
+    void OnCollisionEnter(Collision other)  {
+        if (other != null) { 
+            for (int i = 0; i < other.contactCount; i++) {
                 ContactPoint contact = other.GetContact(i);
-                float speed = Mathf.Abs(Vector3.Dot(rbody.velocity, (contact.point - transform.position).normalized));
-                float volume = (speed <= maxSpeedThreshold) ? UtilityClass.Remap(speed, 0, maxSpeedThreshold, minVol, maxVol) : maxVol;
-                PropSound sound = manager.PropAudios.FirstOrDefault<PropSound>(x => x.Mask == contact.otherCollider.gameObject.layer);
-                AudioSource.PlayClipAtPoint(sound.CollisionSound.clip, contact.point, volume);
+                float speed = Mathf.Abs(Vector3.Dot(_rbody.velocity, (contact.point - transform.position).normalized));
+                float volume = (speed <= _maxSpeedThreshold) ? UtilityClass.Remap(speed, 0, _maxSpeedThreshold, _minVol, _maxVol) : _maxVol;
+                PropSound sound = _audioManager.PropAudios.FirstOrDefault<PropSound>(x => x.Mask == contact.otherCollider.gameObject.layer);
+                if (sound != null)
+                    AudioSource.PlayClipAtPoint(sound.CollisionSound.clip, contact.point, volume);
             }
         }
     }

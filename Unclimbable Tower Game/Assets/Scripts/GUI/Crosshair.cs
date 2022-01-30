@@ -2,56 +2,52 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Crosshair : MonoBehaviour
-{
+public class Crosshair : MonoBehaviour {
     [SerializeField]
-    Image handPickImg;
+    Image _handPickImg;
     [SerializeField]
-    Image handHoldingImg;
+    Image _handHoldingImg;
     [SerializeField]
-    Image handRotatingImg;
+    Image _handRotationImg;
     [SerializeField]
-    Image defaultHandImg;
-
-    Image[] images;
-
-    PickUp pickupScript;
+    Image _defaultHandImg;
+    Image[] _images;
+    PickUp _pickupScript;
 
     // Start is called before the first frame update
     void Start() {
-        pickupScript = GameObject.Find("Player").GetComponentInChildren<PickUp>();
-        images = new Image[4] { handPickImg, handHoldingImg, handRotatingImg, defaultHandImg };
-        SetImageActive(defaultHandImg);
+        _pickupScript = GameObject.Find("Player").GetComponentInChildren<PickUp>();
+        _pickupScript.PickupStateChanged += OnPickupStateChanged;
+        _images = new Image[4] { _handPickImg, _handHoldingImg, _handRotationImg, _defaultHandImg };
+        SetActiveImage(_defaultHandImg);
     }
 
-    // Update is called once per frame
-    void Update() {
-
-        switch(pickupScript.CurrentState) 
-        {
+    // Change Current Crosshair with pickup state
+    void OnPickupStateChanged(object sender, PickupStateEventArgs e) {
+        Debug.Log($"New Pickup State is: {e.NewState}");
+        switch(e.NewState) {
             case PickupState.HOLDINGHEAVYOBJECT:
-                SetImageActive(handHoldingImg);
+                SetActiveImage(_handHoldingImg);
                 break;
             case PickupState.HOLDINGLIGHTOBJECT:
-                SetImageActive(handHoldingImg);
+                SetActiveImage(_handHoldingImg);
                 break;
             case PickupState.OBJECTINSIGHT:
-                SetImageActive(handPickImg);
+                SetActiveImage(_handPickImg);
                 break;
             case PickupState.ROTATINGLIGHTOBJECT:
-                SetImageActive(handRotatingImg);
+                SetActiveImage(_handRotationImg);
                 break;
             default:
-                SetImageActive(defaultHandImg);
+                SetActiveImage(_defaultHandImg);
                 break;
         }
     }
 
-    void SetImageActive(Image img)
-    {
-        foreach(Image image in images)
-        {
-            image.enabled = (img == image) ? true : false;
+    // Set Active img and set inactive all others
+    void SetActiveImage(Image img) {
+        foreach(Image image in _images) {
+            image.enabled = img == image;
         }
     }
 }
