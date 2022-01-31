@@ -7,12 +7,9 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [Header("Mouse Settings")]
-    [Range(0, 1.5f)] [SerializeField]
-    float _horizontalSensitivity = 0.5f;
-    [Range(0, 1.5f)] [SerializeField]
-    float _verticalSensitivity = 0.5f;
-    [SerializeField]
-    PlayerController_FSM _playerController;
+    [Range(0, 1.5f)] [SerializeField] float _horizontalSensitivity = 0.5f;
+    [Range(0, 1.5f)] [SerializeField] float _verticalSensitivity = 0.5f;
+    [SerializeField] PlayerController_FSM _playerController;
     GameManager _gameManager;
     float _mouseX, _mouseY;
     Camera _camera;

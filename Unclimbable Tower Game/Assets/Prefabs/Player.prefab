@@ -343,7 +343,7 @@ MonoBehaviour:
   groundCheck: {fileID: 4694972971461346517}
   groundMask:
     serializedVersion: 2
-    m_Bits: 15360
+    m_Bits: 130048
   walkSpeed: 80
   runSpeed: 120
   midairSpeed: 10

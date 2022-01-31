@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 8423481821315955228}
   - component: {fileID: 941910908533540389}
   - component: {fileID: 4764677427793446023}
-  m_Layer: 3
+  m_Layer: 14
   m_Name: Tree3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1832235121659848451
 Transform:
@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8349976410497484378}
-  m_Mesh: {fileID: -7672157882097804489, guid: f87d7ac764d99724d9353fb5ca82b11b, type: 3}
+  m_Mesh: {fileID: 100100000, guid: a57702cccd59fef4ba1fdcfac15e91cb, type: 3}
 --- !u!23 &941910908533540389
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -60,8 +60,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 61e9807274e9d77409fbdadcf0ba0108, type: 2}
-  - {fileID: 2100000, guid: 7361794838e7fb2429f1101901af07fb, type: 2}
+  - {fileID: 2100000, guid: 4876fdea87fbad54ca92673d5fd7df3e, type: 2}
+  - {fileID: -8679921383154817045, guid: 3de0a157d16b73a488bbff5075bf591a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,4 +96,4 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -7672157882097804489, guid: f87d7ac764d99724d9353fb5ca82b11b, type: 3}
+  m_Mesh: {fileID: 100100000, guid: a57702cccd59fef4ba1fdcfac15e91cb, type: 3}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4944434015695801386}
   - component: {fileID: 3988958542819689455}
   - component: {fileID: 1789371185291660726}
-  m_Layer: 3
+  m_Layer: 11
   m_Name: Inside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 1663913875171748715}
   - component: {fileID: 2158629407868135814}
   - component: {fileID: 449636559169408727}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: OuterRim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bcd9f408775b36e4396d1ff46ec6b51b, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

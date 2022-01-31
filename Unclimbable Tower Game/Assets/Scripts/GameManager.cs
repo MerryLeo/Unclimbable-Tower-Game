@@ -5,10 +5,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour 
 {
     [Header("Settings")] 
-    [SerializeField]
-    float levelTime = 2f;
-    [SerializeField]
-    string nextSceneName = null;
+    [SerializeField] float levelTime = 2f;
+    [SerializeField] string nextSceneName = null;
 
     public event EventHandler GameOverEvent;
     public event EventHandler PauseEvent;

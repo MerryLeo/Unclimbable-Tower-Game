@@ -24,7 +24,6 @@ public class Crosshair : MonoBehaviour {
 
     // Change Current Crosshair with pickup state
     void OnPickupStateChanged(object sender, PickupStateEventArgs e) {
-        Debug.Log($"New Pickup State is: {e.NewState}");
         switch(e.NewState) {
             case PickupState.HOLDINGHEAVYOBJECT:
                 SetActiveImage(_handHoldingImg);

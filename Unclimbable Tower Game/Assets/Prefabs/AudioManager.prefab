@@ -130,6 +130,23 @@ MonoBehaviour:
       volume: 1
       pitch: 1
     Mask: 15
+  - RunSound:
+      clip: {fileID: 8300000, guid: ee5109b2ca7428843a14b6a36dda384f, type: 3}
+      volume: 1
+      pitch: 1
+    WalkSound:
+      clip: {fileID: 8300000, guid: ee5109b2ca7428843a14b6a36dda384f, type: 3}
+      volume: 1
+      pitch: 0.75
+    JumpSound:
+      clip: {fileID: 8300000, guid: 4484cb0b05ef2ae4c9fffdbbbd82c5cd, type: 3}
+      volume: 1
+      pitch: 1
+    LandSound:
+      clip: {fileID: 8300000, guid: 120931fb726356346926852e66a98948, type: 3}
+      volume: 1
+      pitch: 1
+    Mask: 16
   propAudios:
   - CollisionSound:
       clip: {fileID: 8300000, guid: a967f92e38352bb4291945423de63499, type: 3}
@@ -156,6 +173,11 @@ MonoBehaviour:
       volume: 1
       pitch: 1
     Mask: 15
+  - CollisionSound:
+      clip: {fileID: 8300000, guid: 3c1967f6644f7ee4cb90dd9da24dd7da, type: 3}
+      volume: 1
+      pitch: 1
+    Mask: 16
 --- !u!82 &8733919823577578352
 AudioSource:
   m_ObjectHideFlags: 0

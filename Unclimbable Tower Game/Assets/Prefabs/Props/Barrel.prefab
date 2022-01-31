@@ -13,8 +13,10 @@ GameObject:
   - component: {fileID: 5231629547569224557}
   - component: {fileID: 7125024795707718398}
   - component: {fileID: 528558539833866408}
+  - component: {fileID: 5536508298686724251}
   - component: {fileID: 7726972948623493961}
-  m_Layer: 3
+  - component: {fileID: 8453323150035662879}
+  m_Layer: 15
   m_Name: Barrel
   m_TagString: Pickup
   m_Icon: {fileID: 0}
@@ -62,9 +64,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 42245758e465e9743945dd3a92170b56, type: 2}
-  - {fileID: 2100000, guid: 62f3ddba819fe1848bfad1775d83001c, type: 2}
-  - {fileID: 2100000, guid: 27f95338d3919ad4994e79ef0821df6c, type: 2}
+  - {fileID: 2100000, guid: 7ddb5550ca00f684b9963a8bd45fb55f, type: 2}
+  - {fileID: 2100000, guid: dee97cd5b87cf4844a65373884e7bcff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116,6 +117,18 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5536508298686724251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8060907694261613982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a479e9c3f5a9dbc429854ba4475c6642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7726972948623493961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,5 +139,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 769588629ffe54d4a9f9f44e27f63b87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8453323150035662879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8060907694261613982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdb80b08063740845baa56cb261392a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

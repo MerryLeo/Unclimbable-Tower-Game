@@ -56,11 +56,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SideTex:
-        m_Texture: {fileID: 2800000, guid: 6bdc8e67d1780584abae1ed8c3d9b959, type: 3}
+        m_Texture: {fileID: 3, guid: ca3e502659ee9e943aaae90ff4aba85f, type: 3}
         m_Scale: {x: 0.3, y: 0.3}
         m_Offset: {x: -0.16, y: 0.05}
     - _TopTex:
-        m_Texture: {fileID: 2800000, guid: e16032c882f39b84bb49b206d0afdf0e, type: 3}
+        m_Texture: {fileID: 1532023777730939988, guid: f69a47b992e6f2240ad50e1ad0c043d5, type: 3}
         m_Scale: {x: 0.5, y: 0.5}
         m_Offset: {x: 1, y: 1}
     m_Floats:
@@ -69,7 +69,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.01
+    - _Glossiness: 0.15
     - _GlossyReflections: 1
     - _Metallic: 0.25
     - _Mode: 0

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4194347064667965482}
   - component: {fileID: 5565318774235771364}
   - component: {fileID: 5910878395944449271}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Octogon Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3762913304954053591}
   - component: {fileID: 7814970013501528213}
   - component: {fileID: 1749179241415781275}
+  - component: {fileID: 521856617855321644}
   m_Layer: 11
   m_Name: Two-sided MiddleTop
   m_TagString: Untagged
@@ -81,6 +82,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &521856617855321644
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231002605437557981}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3614231801601471498, guid: b7fd9f3e5e987aa41bcdb790a8f3cb26, type: 3}
 --- !u!1 &1372315054766860553
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,6 +107,7 @@ GameObject:
   - component: {fileID: 2334230877590190875}
   - component: {fileID: 1561730460754536896}
   - component: {fileID: 7928701701509028610}
+  - component: {fileID: 1800829397215803902}
   m_Layer: 13
   m_Name: Two-sided Middle
   m_TagString: Untagged
@@ -162,6 +178,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1800829397215803902
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372315054766860553}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6968843975484137648, guid: b7fd9f3e5e987aa41bcdb790a8f3cb26, type: 3}
 --- !u!1 &4474354202101769673
 GameObject:
   m_ObjectHideFlags: 0

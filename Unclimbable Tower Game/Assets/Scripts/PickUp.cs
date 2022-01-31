@@ -8,7 +8,7 @@ using System;
 public class PickUp : MonoBehaviour {
     public PickupState CurrentState { get; private set; } = PickupState.IDLE;
     public event EventHandler<PickupStateEventArgs> PickupStateChanged;
-    const float _maxPickupDst = 5f, _maxHoldDst = 5.5f, _minCameraObjectDst = 1.5f, _force = 60f, _throwForce = 275f, _torque = 80f;
+    const float _maxPickupDst = 5f, _maxHoldDst = 5.5f, _minCameraObjectDst = 1.5f, _force = 100f, _throwForce = 275f, _torque = 60f;
     const float _pickupAngularDrag = 15f, _pickupDrag = 10f;
     const string _mouseXAxisName = "Mouse X", _mouseYAxisName = "Mouse Y";
     const int _weightThreshold = 80; // Object heavier than weightThreshold will be considered heavy

@@ -4,33 +4,27 @@ using UnityEngine;
 
 [RequireComponent(typeof(PickableObject))]
 [RequireComponent(typeof(Rigidbody))]
-public class RespawnOutOfBound : MonoBehaviour 
-{
-    Vector3 initialPos;
-    Quaternion initialRot;
-    const float lowerBound = -10f, topBound = 10f;
-    Rigidbody rbody;
-
-    // Start is called before the first frame update
-    void Start() 
-    {
-        initialPos = transform.position;
-        initialRot = transform.rotation;
-        rbody = GetComponent<Rigidbody>();
+public class RespawnOutOfBound : MonoBehaviour {
+    Vector3 _initialPos;
+    Quaternion _initialRot;
+    Rigidbody _rbody;
+    const float _lowerBound = -10f, _topBound = 10f;
+    void Start() {
+        _initialPos = transform.position;
+        _initialRot = transform.rotation;
+        _rbody = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update() 
-    {
-        if (transform.position.y < lowerBound) 
+    void Update() {
+        if (transform.position.y < _lowerBound) 
             ResetObject();
     }
 
-    void ResetObject() 
-    {
-        rbody.velocity = Vector3.zero;
-        rbody.MovePosition(initialPos + Vector3.up * topBound);
-        rbody.MoveRotation(initialRot);
-        rbody.velocity = Vector3.zero;
+    // Reset Transform
+    void ResetObject() {
+        _rbody.velocity = Vector3.zero;
+        _rbody.MovePosition(_initialPos + Vector3.up * _topBound);
+        _rbody.MoveRotation(_initialRot);
+        _rbody.velocity = Vector3.zero;
     }
 }
