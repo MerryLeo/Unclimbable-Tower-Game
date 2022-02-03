@@ -3,18 +3,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Crosshair : MonoBehaviour {
-    [SerializeField]
-    Image _handPickImg;
-    [SerializeField]
-    Image _handHoldingImg;
-    [SerializeField]
-    Image _handRotationImg;
-    [SerializeField]
-    Image _defaultHandImg;
+    [SerializeField] Image _handPickImg;
+    [SerializeField] Image _handHoldingImg;
+    [SerializeField] Image _handRotationImg;
+    [SerializeField] Image _defaultHandImg;
     Image[] _images;
     PickUp _pickupScript;
 
-    // Start is called before the first frame update
     void Start() {
         _pickupScript = GameObject.Find("Player").GetComponentInChildren<PickUp>();
         _pickupScript.PickupStateChanged += OnPickupStateChanged;

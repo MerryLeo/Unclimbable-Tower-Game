@@ -1,36 +1,45 @@
+/*
+    Script that manages audio for a first person player controller.
+    Different Sounds are played based on: 
+    - the ground the player is standing on
+    - the state that the player is in
+*/
 using System;
 using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(PlayerController_FSM))]
-public class PlayerAudioController : MonoBehaviour
-{
-    PlayerController_FSM controller;
-    GroundSound[] sounds;
-    GroundSound currentSound;
+public class PlayerAudioController : MonoBehaviour {
+    PlayerController_FSM _controller;
+    GroundSound[] _sounds;
+    GroundSound _currentSound;
     event EventHandler<GroundEventArgs> GroundChanged;
-    AudioSource source;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        source = GetComponent<AudioSource>();
-        controller = GetComponent<PlayerController_FSM>();
-        controller.StateChanged += OnPlayerStateChanged;
+    AudioSource _source;
+    GameManager _manager;
+    const string _gameManagerName = "GameManager";
+    void Start() {
+        _source = GetComponent<AudioSource>();
+        _controller = GetComponent<PlayerController_FSM>();
+        _controller.StateChanged += OnPlayerStateChanged;
 
         // Setup default audio and listener
-        sounds = GameObject.FindObjectOfType<AudioManager>().GroundAudios;
-        currentSound = sounds[0];
+        _sounds = GameObject.FindObjectOfType<AudioManager>().GroundAudios;
+        _currentSound = _sounds[0];
         GroundChanged += OnGroundChanged;
+
+        // Add Listener to the game manager events
+        _manager = GameObject.Find(_gameManagerName).GetComponent<GameManager>();
+        _manager.PauseEvent += OnGamePaused;
+        _manager.WonEvent += OnGamePaused;
+        _manager.GameOverEvent += OnGamePaused;
+        _manager.ResumeEvent += OnGameResumed;
     }
 
-    void FixedUpdate() 
-    {
-        // Raise an event if the player is standing on a different ground
+    // Raise an event if the player is standing on a different ground
+    void FixedUpdate() { 
         RaycastHit hitInfo;
-        if (Physics.Raycast(transform.position, Vector3.down, out hitInfo) && hitInfo.transform.gameObject.layer != currentSound.Mask)
-        {
+        if (Physics.Raycast(transform.position, Vector3.down, out hitInfo) && hitInfo.transform.gameObject.layer != _currentSound.Mask) {
             EventHandler<GroundEventArgs> handler = GroundChanged;
             GroundEventArgs args = new GroundEventArgs();
             args.Mask = hitInfo.transform.gameObject.layer;
@@ -38,67 +47,71 @@ public class PlayerAudioController : MonoBehaviour
         }
     }
 
-    void OnGroundChanged(object sender, GroundEventArgs e)
-    {
+    // Stop Audio if the game is paused, the player won or lost
+    void OnGamePaused(object sender, EventArgs e) {
+        _source.Stop();
+    }
+
+    // Play Audio if the game is paused
+    void OnGameResumed(object sender, EventArgs e) {
+        PlayerStateChangedEventArgs args = new PlayerStateChangedEventArgs();
+        args.PreviousState = _controller.IdleState;
+        args.NewState = _controller.CurrentState;
+        OnPlayerStateChanged(this, args);
+    }
+
+    // Switch Current Ground Sound when Player is Stanting on different ground
+    void OnGroundChanged(object sender, GroundEventArgs e) {
         // Find audio that match the current ground
-        currentSound = sounds.FirstOrDefault<GroundSound>(x => x.Mask == e.Mask) ?? currentSound;
+        _currentSound = _sounds.FirstOrDefault<GroundSound>(x => x.Mask == e.Mask) ?? _currentSound;
 
         // Switch continuous clip
-        if (controller.CurrentState is PlayerWalkingState)
-        {
-            PlaySound(currentSound.WalkSound);
-        }
-        else if (controller.CurrentState is PlayerRunningState)
-        {
-            PlaySound(currentSound.RunSound);
-        }
+        if (_controller.CurrentState is PlayerWalkingState) 
+            PlaySound(_currentSound.WalkSound);
+        
+        else if (_controller.CurrentState is PlayerRunningState)
+            PlaySound(_currentSound.RunSound);
+        
     }
 
-    void OnPlayerStateChanged(object sender, PlayerStateChangedEventArgs e)
-    {
+    // Switch Clip when Player CurrentState Changes
+    void OnPlayerStateChanged(object sender, PlayerStateChangedEventArgs e) {
         if (e.PreviousState is PlayerFallingState)
-        {
-            PlaySoundOnce(currentSound.LandSound);
-        }
+            PlaySoundOnce(_currentSound.LandSound);
+        
         else if (e.NewState is PlayerIdleState)
-        {
-            source.loop = false;
-        }
+            _source.loop = false;
+        
         else if (e.NewState is PlayerWalkingState)
-        {
-            PlaySound(currentSound.WalkSound);
-        }
+            PlaySound(_currentSound.WalkSound);
+        
         else if (e.NewState is PlayerRunningState)
-        {
-            PlaySound(currentSound.RunSound);
-        }
+            PlaySound(_currentSound.RunSound);
+        
         else if (e.NewState is PlayerJumpingState)
-        {
-            PlaySoundOnce(currentSound.JumpSound);
-        }
+            PlaySoundOnce(_currentSound.JumpSound);
+        
     }
 
-    void PlaySound(Sound sound)
-    {
-        source.volume = sound.volume;
-        source.pitch = sound.pitch;
-        source.clip = sound.clip;
-        source.loop = true;
-        source.Play();
+    // Play Continuous Sound
+    void PlaySound(Sound sound) {
+        _source.volume = sound.volume;
+        _source.pitch = sound.pitch;
+        _source.clip = sound.clip;
+        _source.loop = true;
+        _source.Play();
     }
 
-    void PlaySoundOnce(Sound sound)
-    {
-        source.loop = false;
-        source.pitch = sound.pitch;
-        source.PlayOneShot(sound.clip, sound.volume);
+    // Play Sound Only Once
+    void PlaySoundOnce(Sound sound) {
+        _source.loop = false;
+        _source.pitch = sound.pitch;
+        _source.PlayOneShot(sound.clip, sound.volume);
     }
 
-    private class GroundEventArgs : EventArgs
-    {
+    private class GroundEventArgs : EventArgs {
         public int Mask;
     }
-
 }
 
 

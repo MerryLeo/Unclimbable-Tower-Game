@@ -11,6 +11,7 @@ public class MenuCameraController : MonoBehaviour {
     public Vector3 TopPos => topPosition;
     public Vector3 FallRot => fallingRotation;
     public Vector3 RiseRot => risingRotation;
+    const float _sphereRadius = 0.75f;
 
     float _positionLerpValue = 0, _rotationLerpValue = 0.5f;
     float _targetRotationLerp = 0.5f;
@@ -26,13 +27,10 @@ public class MenuCameraController : MonoBehaviour {
     void Update() {
         // Increment or decrement lerpValue with vertical mouse position
         float mouseY = Mathf.Clamp01(Input.mousePosition.y / Screen.height);
-        if (mouseY > _maxMouseYThreshold)
-        {
-            _positionLerpValue += UtilityClass.Remap(mouseY, _maxMouseYThreshold, 1f, 0, 1f) * _lerpSpeed * Time.deltaTime;
-        }
-        else if (mouseY < _minMouseYThreshold)
-        {
-            _positionLerpValue -= UtilityClass.Remap(mouseY, _minMouseYThreshold, 0, 0, 1f) * _lerpSpeed * Time.deltaTime;
+        if (mouseY > _maxMouseYThreshold) {
+            _positionLerpValue += mouseY.Remap(_maxMouseYThreshold, 1f, 0, 1f) * _lerpSpeed * Time.deltaTime;
+        } else if (mouseY < _minMouseYThreshold) {
+            _positionLerpValue -= mouseY.Remap(_minMouseYThreshold, 0, 0, 1f) * _lerpSpeed * Time.deltaTime;
         }
         _positionLerpValue = Mathf.Clamp01(_positionLerpValue);
         
@@ -47,6 +45,10 @@ public class MenuCameraController : MonoBehaviour {
         // Update position and rotation using lerpValue and currentRotationLerp
         transform.position = Vector3.Lerp(bottomPosition, topPosition, _positionLerpValue);
         transform.rotation = Quaternion.Lerp(_minCamRotation, _maxCamRotation, _rotationLerpValue);
-        
+    }
+
+    void OnDrawGizmos() {
+        Gizmos gizmos = new Gizmos();
+        gizmos.DrawLineWithSpheres(bottomPosition, topPosition, new Color(0.5f, 0.5f, 0f, 0.85f), new Color(1f, 1f, 1f, 1f), _sphereRadius);
     }
 }

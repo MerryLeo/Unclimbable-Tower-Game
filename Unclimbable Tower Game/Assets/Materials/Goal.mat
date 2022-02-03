@@ -68,8 +68,8 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _RingAmp: 5
-    - _RingIntensity: 0.2
-    - _RingThreshold: 0.83
+    - _RingIntensity: 0.1
+    - _RingThreshold: 0.832
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -78,5 +78,5 @@ Material:
     m_Colors:
     - _Color: {r: 0.90588236, g: 0.6213246, b: 0.14901958, a: 1}
     - _EmissionColor: {r: 0.43529412, g: 0.14509805, b: 0, a: 1}
-    - _RingColor: {r: 1, g: 0.8518007, b: 0, a: 1}
+    - _RingColor: {r: 1, g: 0.9821391, b: 0, a: 1}
   m_BuildTextureStacks: []

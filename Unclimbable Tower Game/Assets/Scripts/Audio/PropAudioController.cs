@@ -25,7 +25,8 @@ public class PropAudioController : MonoBehaviour {
             for (int i = 0; i < other.contactCount; i++) {
                 ContactPoint contact = other.GetContact(i);
                 float speed = Mathf.Abs(Vector3.Dot(_rbody.velocity, (contact.point - transform.position).normalized));
-                float volume = (speed <= _maxSpeedThreshold) ? UtilityClass.Remap(speed, 0, _maxSpeedThreshold, _minVol, _maxVol) : _maxVol;
+                float volume = (speed <= _maxSpeedThreshold) ? speed.Remap(0, _maxSpeedThreshold, _minVol, _maxVol) : _maxVol;
+                // float volume = (speed <= _maxSpeedThreshold) ? UtilityClass.Remap(speed, 0, _maxSpeedThreshold, _minVol, _maxVol) : _maxVol;
                 PropSound sound = _audioManager.PropAudios.FirstOrDefault<PropSound>(x => x.Mask == contact.otherCollider.gameObject.layer);
                 if (sound != null)
                     AudioSource.PlayClipAtPoint(sound.CollisionSound.clip, contact.point, volume);

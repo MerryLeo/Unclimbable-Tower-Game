@@ -18,6 +18,7 @@ public class PickUp : MonoBehaviour {
     float _currentForce, _time;
     ObjectData _objectData;
     CameraController _camController;
+    
     void Start() {
         // Location where the player picked the object
         _pickedTrans = new GameObject("PickedLocation").transform;
@@ -95,7 +96,8 @@ public class PickUp : MonoBehaviour {
     void FixedUpdate() {
         // Move object
         if (CurrentState is PickupState.HOLDINGLIGHTOBJECT || CurrentState is PickupState.HOLDINGHEAVYOBJECT || CurrentState is PickupState.ROTATINGLIGHTOBJECT) {
-            _currentForce = UtilityClass.Remap(_pickupSpeedCurve.Evaluate(Time.time - _time), 0, 1, 0, _force); // Force is a value between 0 and maxForce
+            _currentForce = _pickupSpeedCurve.Evaluate(Time.time - _time).Remap(0, 1, 0, _force); // Force is a value between 0 and maxForce
+            // _currentForce = UtilityClass.Remap(_pickupSpeedCurve.Evaluate(Time.time - _time), 0, 1, 0, _force); // Force is a value between 0 and maxForce
             Vector3 destination = transform.position + transform.forward * _minCameraObjectDst;
             if (CurrentState is PickupState.HOLDINGLIGHTOBJECT) {
                 Move(destination, _currentForce);
@@ -241,10 +243,10 @@ public class PickupStateEventArgs : EventArgs {
 }
 
 public enum PickupState {
-        HOLDINGLIGHTOBJECT,
-        HOLDINGHEAVYOBJECT,
-        ROTATINGLIGHTOBJECT,
-        OBJECTINSIGHT,
-        IDLE,
-        INACTIVE
-    }
+    HOLDINGLIGHTOBJECT,
+    HOLDINGHEAVYOBJECT,
+    ROTATINGLIGHTOBJECT,
+    OBJECTINSIGHT,
+    IDLE,
+    INACTIVE
+}

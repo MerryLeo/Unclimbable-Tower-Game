@@ -2,26 +2,18 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerUIScreen : MonoBehaviour {
-    // UI Elements
+    
     [Header("UI Game Objects")]
-    [SerializeField]
-    GameObject _crosshairObj;
-    [SerializeField]
-    GameObject _timerObj;
-    [SerializeField]
-    GameObject _pauseScreenObj;
-    [SerializeField]
-    GameObject _optionScreenObj;
-    [SerializeField]
-    GameObject _winScreenObj;
-    [SerializeField]
-    GameObject _gameOverScreenObj;
-
-    [SerializeField]
-    Timer _timer;
-
+    [SerializeField] GameObject crosshairObj;
+    [SerializeField] GameObject timerObj;
+    [SerializeField] GameObject pauseScreenObj;
+    [SerializeField] GameObject optionScreenObj;
+    [SerializeField] GameObject winScreenObj;
+    [SerializeField] GameObject gameOverScreenObj;
+    [SerializeField] Timer timer;
     SpawnArea _spawn;
     GameManager _manager;
     const string _spawnTag = "SpawnArea", _gameManagerName = "GameManager";
@@ -40,62 +32,62 @@ public class PlayerUIScreen : MonoBehaviour {
         _spawn.PlayerOutOfSpawnEvent += OnPlayerOutOfSpawn;
 
         // Initial UI Configuration
-        _winScreenObj.SetActive(false);
-        _pauseScreenObj.SetActive(false);
-        _crosshairObj.SetActive(true);
-        _gameOverScreenObj.SetActive(false);
+        winScreenObj.SetActive(false);
+        pauseScreenObj.SetActive(false);
+        crosshairObj.SetActive(true);
+        gameOverScreenObj.SetActive(false);
     }
 
     void OnPlayerOutOfSpawn(object sender, EventArgs e) {
-        _timer.InitializeTimer();
-        _timer.StartTimer();
+        timer.InitializeTimer();
+        timer.StartTimer();
     }
 
     void OnGamePaused(object sender, EventArgs e) {
         // Timer
-        if (_timer.Initialised)
-            _timer.StartTimer();
+        if (timer.Initialised)
+            timer.StartTimer();
 
         // UI Configuration
-        _winScreenObj.SetActive(false);
-        _pauseScreenObj.SetActive(true);
-        _crosshairObj.SetActive(false);
-        _gameOverScreenObj.SetActive(false);
+        winScreenObj.SetActive(false);
+        pauseScreenObj.SetActive(true);
+        crosshairObj.SetActive(false);
+        gameOverScreenObj.SetActive(false);
     }
 
     void OnGameResumed(object sender, EventArgs e) {
         // Timer
-        if (_timer.Initialised)
-            _timer.StartTimer();
+        if (timer.Initialised)
+            timer.StartTimer();
 
         // UI Configuration
-        _winScreenObj.SetActive(false);
-        _pauseScreenObj.SetActive(false);
-        _crosshairObj.SetActive(true);
-        _gameOverScreenObj.SetActive(false);
+        winScreenObj.SetActive(false);
+        pauseScreenObj.SetActive(false);
+        crosshairObj.SetActive(true);
+        gameOverScreenObj.SetActive(false);
     }
 
     void OnGameWon(object sender, EventArgs e) {
         // Timer
-        if (_timer.Initialised)
-            _timer.StartTimer();
+        if (timer.Initialised)
+            timer.StartTimer();
 
         // UI Configuration
-        _winScreenObj.SetActive(true);
-        _pauseScreenObj.SetActive(false);
-        _crosshairObj.SetActive(false);
-        _gameOverScreenObj.SetActive(false);
+        winScreenObj.SetActive(true);
+        pauseScreenObj.SetActive(false);
+        crosshairObj.SetActive(false);
+        gameOverScreenObj.SetActive(false);
     }
 
     void OnGameOver(object sender, EventArgs e) {
         // Timer
-        if (_timer.Initialised)
-            _timer.StartTimer();
+        if (timer.Initialised)
+            timer.StartTimer();
 
         // UI Configuration
-        _winScreenObj.SetActive(false);
-        _pauseScreenObj.SetActive(false);
-        _crosshairObj.SetActive(false);
-        _gameOverScreenObj.SetActive(true);
+        winScreenObj.SetActive(false);
+        pauseScreenObj.SetActive(false);
+        crosshairObj.SetActive(false);
+        gameOverScreenObj.SetActive(true);
     }
 }

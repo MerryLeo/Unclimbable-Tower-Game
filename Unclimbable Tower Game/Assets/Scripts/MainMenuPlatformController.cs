@@ -10,8 +10,8 @@ public class MainMenuPlatformController : MonoBehaviour {
     Vector3 _bottomCameraPos, _topCameraPos;
     float _targetLerp = 0, _lerpValue = 0, _waveTime = 0;
     const float _lerpSpeed = 1.25f, _verticalSpeed = 1.45f, _verticalVariation = 0.35f;
-    MenuCameraController _cameraScript;
-    
+    const float _sphereRadius = 0.75f;
+    MenuCameraController _cameraScript;    
     void Start() {
         _cameraScript = cameraTrans.GetComponent<MenuCameraController>();
         _bottomCameraPos = _cameraScript.BottomPos;
@@ -30,5 +30,10 @@ public class MainMenuPlatformController : MonoBehaviour {
             transform.rotation = Quaternion.Lerp(node1.rotation, node2.rotation, _lerpValue);
             _waveTime += _verticalSpeed * Time.deltaTime;
         }
+    }
+
+    void OnDrawGizmos() {
+        Gizmos gizmos = new Gizmos();
+        gizmos.DrawLineWithSpheres(node1.position, node2.position, new Color(0.5f, 0.5f, 0f, 0.85f), new Color(1f, 1f, 1f, 1f), _sphereRadius);
     }
 }
