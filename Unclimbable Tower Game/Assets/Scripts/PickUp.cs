@@ -8,7 +8,7 @@ using System;
 public class PickUp : MonoBehaviour {
     public PickupState CurrentState { get; private set; } = PickupState.IDLE;
     public event EventHandler<PickupStateEventArgs> PickupStateChanged;
-    const float _maxPickupDst = 5f, _maxHoldDst = 5.5f, _minCameraObjectDst = 1.5f, _force = 100f, _throwForce = 275f, _torque = 60f;
+    const float _maxPickupDst = 5f, _maxHoldDst = 5.5f, _minCameraObjectDst = 1.5f, _force = 100f, _throwForce = 275f, _torque = 45f;
     const float _pickupAngularDrag = 15f, _pickupDrag = 10f;
     const string _mouseXAxisName = "Mouse X", _mouseYAxisName = "Mouse Y";
     const int _weightThreshold = 80; // Object heavier than weightThreshold will be considered heavy
@@ -35,7 +35,7 @@ public class PickUp : MonoBehaviour {
 
         // Curve for the speed of the object when it is picked
         Keyframe[] keys = new Keyframe[2];
-        keys[0] = new Keyframe(0,0,0,0);
+        keys[0] = new Keyframe(0,0.5f,0,0);
         keys[1] = new Keyframe(1,1,0,0);
         _pickupSpeedCurve = new AnimationCurve(keys);
     }
@@ -97,7 +97,6 @@ public class PickUp : MonoBehaviour {
         // Move object
         if (CurrentState is PickupState.HOLDINGLIGHTOBJECT || CurrentState is PickupState.HOLDINGHEAVYOBJECT || CurrentState is PickupState.ROTATINGLIGHTOBJECT) {
             _currentForce = _pickupSpeedCurve.Evaluate(Time.time - _time).Remap(0, 1, 0, _force); // Force is a value between 0 and maxForce
-            // _currentForce = UtilityClass.Remap(_pickupSpeedCurve.Evaluate(Time.time - _time), 0, 1, 0, _force); // Force is a value between 0 and maxForce
             Vector3 destination = transform.position + transform.forward * _minCameraObjectDst;
             if (CurrentState is PickupState.HOLDINGLIGHTOBJECT) {
                 Move(destination, _currentForce);

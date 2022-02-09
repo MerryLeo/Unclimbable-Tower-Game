@@ -2,6 +2,7 @@ using UnityEngine;
 using System.IO;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine.SceneManagement;
 
 public class SaveSystem : MonoBehaviour {
     public GameData Data { get; private set; }
@@ -32,7 +33,7 @@ public class SaveSystem : MonoBehaviour {
     }
 
     // Reset Data to its default value and Save
-    public void NewGame() {
+    public void ResetGame() {
         Data = LoadGame();
         if (Data == null)
             Data = DefaultData;
@@ -41,6 +42,7 @@ public class SaveSystem : MonoBehaviour {
         EventHandler handler = GameLoaded;
         handler?.Invoke(this, EventArgs.Empty);
         LoadSetting();
+        SceneManager.LoadScene("Level 1", LoadSceneMode.Single);
     }
 
     // Update Current Save with newData

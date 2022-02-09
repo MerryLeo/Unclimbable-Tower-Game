@@ -50,6 +50,6 @@ public class MainMenuUI : MonoBehaviour {
         
         // Exit Button
         exitButton.onClick.AddListener(delegate{ GameManager.QuitGame(); });
-        newGameButton.onClick.AddListener(delegate{ _saveSystem.NewGame(); });
+        newGameButton.onClick.AddListener(delegate{ _saveSystem.ResetGame(); });
     }
 }
