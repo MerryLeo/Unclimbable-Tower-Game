@@ -17,11 +17,16 @@ public class PlayerAudioController : MonoBehaviour {
     event EventHandler<GroundEventArgs> GroundChanged;
     AudioSource _source;
     GameManager _manager;
-    const string _gameManagerName = "GameManager";
-    void Start() {
+    SaveSystem _saveSystem;
+    float volume = 1;
+    const string _gameManagerName = "GameManager", _saveSystemName = "SaveSystem";
+    void Awake() {
         _source = GetComponent<AudioSource>();
         _controller = GetComponent<PlayerController_FSM>();
         _controller.StateChanged += OnPlayerStateChanged;
+        _saveSystem = GameObject.Find(_saveSystemName).GetComponent<SaveSystem>();
+        _saveSystem.GameSettingLoaded += OnGameSettingChanged;
+        _saveSystem.GameLoaded += OnGameSettingChanged;
 
         // Setup default audio and listener
         _sounds = GameObject.FindObjectOfType<AudioManager>().GroundAudios;
@@ -45,6 +50,11 @@ public class PlayerAudioController : MonoBehaviour {
             args.Mask = hitInfo.transform.gameObject.layer;
             GroundChanged?.Invoke(this, args);
         }
+    }
+
+    // Change the sound volume
+    void OnGameSettingChanged(object sender, EventArgs e) {
+        this.volume = _saveSystem.Data.SoundVolume;
     }
 
     // Stop Audio if the game is paused, the player won or lost
@@ -95,7 +105,7 @@ public class PlayerAudioController : MonoBehaviour {
 
     // Play Continuous Sound
     void PlaySound(Sound sound) {
-        _source.volume = sound.volume;
+        _source.volume = sound.volume * this.volume;
         _source.pitch = sound.pitch;
         _source.clip = sound.clip;
         _source.loop = true;
@@ -106,7 +116,7 @@ public class PlayerAudioController : MonoBehaviour {
     void PlaySoundOnce(Sound sound) {
         _source.loop = false;
         _source.pitch = sound.pitch;
-        _source.PlayOneShot(sound.clip, sound.volume);
+        _source.PlayOneShot(sound.clip, sound.volume * this.volume);
     }
 
     private class GroundEventArgs : EventArgs {

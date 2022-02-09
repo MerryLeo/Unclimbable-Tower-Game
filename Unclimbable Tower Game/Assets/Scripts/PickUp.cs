@@ -52,7 +52,7 @@ public class PickUp : MonoBehaviour {
                 if (CurrentState is PickupState.IDLE && pickableObjectInSight) // Change State to OBJECTINSIGHT
                     SetState(PickupState.OBJECTINSIGHT);
                 
-                if (CurrentState is PickupState.OBJECTINSIGHT && Input.GetButtonDown("Fire1")) // Change State to HOLDINGLIGHTOBJECT or HOLDINGHEAVYOBJECT
+                if (objectScript != null && CurrentState is PickupState.OBJECTINSIGHT && Input.GetButtonDown("Fire1")) // Change State to HOLDINGLIGHTOBJECT or HOLDINGHEAVYOBJECT
                     Pickup(objectScript, hitInfo);
             }
             else if (CurrentState is PickupState.OBJECTINSIGHT && !pickableObjectInSight) { // Change State to IDLE

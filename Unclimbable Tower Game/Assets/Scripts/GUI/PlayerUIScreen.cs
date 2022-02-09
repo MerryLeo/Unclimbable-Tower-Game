@@ -34,7 +34,24 @@ public class PlayerUIScreen : MonoBehaviour {
         // Initial UI Configuration
         winScreenObj.SetActive(false);
         pauseScreenObj.SetActive(false);
+        optionScreenObj.SetActive(false);
         crosshairObj.SetActive(true);
+        gameOverScreenObj.SetActive(false);
+    }
+
+    public void OpenSettingWindow() {
+        winScreenObj.SetActive(false);
+        pauseScreenObj.SetActive(false);
+        optionScreenObj.SetActive(true);
+        crosshairObj.SetActive(false);
+        gameOverScreenObj.SetActive(false);
+    }
+
+    public void CloseSettingWindowAndSave() {
+        winScreenObj.SetActive(false);
+        pauseScreenObj.SetActive(true);
+        optionScreenObj.SetActive(false);
+        crosshairObj.SetActive(false);
         gameOverScreenObj.SetActive(false);
     }
 
@@ -51,6 +68,7 @@ public class PlayerUIScreen : MonoBehaviour {
         // UI Configuration
         winScreenObj.SetActive(false);
         pauseScreenObj.SetActive(true);
+        optionScreenObj.SetActive(false);
         crosshairObj.SetActive(false);
         gameOverScreenObj.SetActive(false);
     }
@@ -63,6 +81,7 @@ public class PlayerUIScreen : MonoBehaviour {
         // UI Configuration
         winScreenObj.SetActive(false);
         pauseScreenObj.SetActive(false);
+        optionScreenObj.SetActive(false);
         crosshairObj.SetActive(true);
         gameOverScreenObj.SetActive(false);
     }
@@ -75,6 +94,7 @@ public class PlayerUIScreen : MonoBehaviour {
         // UI Configuration
         winScreenObj.SetActive(true);
         pauseScreenObj.SetActive(false);
+        optionScreenObj.SetActive(false);
         crosshairObj.SetActive(false);
         gameOverScreenObj.SetActive(false);
     }
@@ -87,6 +107,7 @@ public class PlayerUIScreen : MonoBehaviour {
         // UI Configuration
         winScreenObj.SetActive(false);
         pauseScreenObj.SetActive(false);
+        optionScreenObj.SetActive(false);
         crosshairObj.SetActive(false);
         gameOverScreenObj.SetActive(true);
     }

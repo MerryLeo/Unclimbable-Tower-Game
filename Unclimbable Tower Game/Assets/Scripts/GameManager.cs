@@ -5,32 +5,36 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
     [Header("Settings")] 
     [SerializeField] float levelTime = 2f;
-    [SerializeField] int levelNum;
     public event EventHandler GameOverEvent;
     public event EventHandler PauseEvent;
     public event EventHandler ResumeEvent;
     public event EventHandler WonEvent;
-
     public float LevelTime => levelTime;
-    public int CurrentLevel { get; private set; } = 0;
     GameObject _playerObj;
-    const float _lowerBound = -10f;
+    int? _levelNumber; // Current Level Number
     bool _gameOver, _playerWon;
-    const string _mainMenuSceneName = "Mainmenu";
-
-    // Start is called before the first frame update
+    SaveSystem _saveSystem;
+    const float _lowerBound = -10f;
+    const string _mainMenuSceneName = "Mainmenu", _playerName = "Player", _saveSystemName = "SaveSystem";
+    const string _pauseInput = "Pause";
     void Start() {
+        // Level Number is found in the name of the current Scene
+        // Ex: if the scene is called Level 5 then level number is 5
+        _levelNumber = SceneManager.GetActiveScene().name.FetchNumber();
+        if (_levelNumber == null)
+            _levelNumber = 1;
+
+        _saveSystem = GameObject.Find(_saveSystemName).GetComponent<SaveSystem>();
         _gameOver = _playerWon = false;
-        _playerObj = GameObject.Find("Player");
+        _playerObj = GameObject.Find(_playerName);
         Time.timeScale = 1;
     }
 
-    // Update is called once per frame
     void Update() {
         if (!_playerWon && !_gameOver && _playerObj.transform.position.y < _lowerBound) // Game Over
             GameOver();
 
-        else if (Input.GetButtonDown("Pause") && !_gameOver && !_playerWon) // Pause
+        else if (Input.GetButtonDown(_pauseInput) && !_gameOver && !_playerWon) // Pause
             Pause();
     }
 
@@ -42,9 +46,9 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 0;
 
         // Save Game Data
-        if (CurrentLevel < levelNum) {
-            CurrentLevel++;
-            SaveSystem.SaveGame(new PlayerData(levelNum));
+        if (_saveSystem.Data.Level <= _levelNumber) {
+            _saveSystem.Data.Level++;
+            SaveSystem.SaveGame(_saveSystem.Data);
         }
     }
 
@@ -68,8 +72,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void ReturnToMainMenu() {
-        SaveSystem.SaveGame(new PlayerData(levelNum));
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        SceneManager.LoadScene(_mainMenuSceneName, LoadSceneMode.Single);
     }
 
     // Restart Current Scene

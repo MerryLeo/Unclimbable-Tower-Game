@@ -20,6 +20,7 @@ public class MenuCameraController : MonoBehaviour {
     const float _camRotation = 25f;
     Quaternion _minCamRotation, _maxCamRotation;
     void Start() {
+        Time.timeScale = 1;
         _minCamRotation = Quaternion.Euler(fallingRotation);
         _maxCamRotation = Quaternion.Euler(risingRotation);
     }
@@ -33,7 +34,6 @@ public class MenuCameraController : MonoBehaviour {
             _positionLerpValue -= mouseY.Remap(_minMouseYThreshold, 0, 0, 1f) * _lerpSpeed * Time.deltaTime;
         }
         _positionLerpValue = Mathf.Clamp01(_positionLerpValue);
-        
         // Increment or decrement the current rotation lerp value
         _targetRotationLerp = ((mouseY < _maxMouseYThreshold && mouseY > _minMouseYThreshold) || (_positionLerpValue == 0 || _positionLerpValue == 1)) ? 0.5f : mouseY;
         if (_rotationLerpValue < _targetRotationLerp) {

@@ -4,23 +4,20 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
-public class CameraController : MonoBehaviour
-{
+public class CameraController : MonoBehaviour {
     [Header("Mouse Settings")]
-    [Range(0, 1.5f)] [SerializeField] float _horizontalSensitivity = 0.5f;
-    [Range(0, 1.5f)] [SerializeField] float _verticalSensitivity = 0.5f;
     [SerializeField] PlayerController_FSM _playerController;
     GameManager _gameManager;
+    SaveSystem _saveSystem;
     float _mouseX, _mouseY;
     Camera _camera;
     const float _fovSpeed = 0.02f, _runningFOV = 80f, _maxVerticalRotation = 80f;
-    const string _gameManagerName = "GameManager", _mouseXAxisName = "Mouse X", _mouseYAxisName = "Mouse Y";
-    float _defaultFov, _currentFOV, _targetFOV, _count;
+    const string _gameManagerName = "GameManager", _saveSystemName = "SaveSystem", _mouseXAxisName = "Mouse X", _mouseYAxisName = "Mouse Y";
+    float _defaultFov, _currentFOV, _targetFOV, _count, _mouseSensitivity = 0.5f;
     bool _active;
 
     // Initialize Variables and Add Listeners to Game Manager
-    void Start()
-    {
+    void Start() {
         _camera = GetComponent<Camera>();
         _playerController.StateChanged += OnPlayerStateChanged;
         _count = 0;
@@ -34,14 +31,18 @@ public class CameraController : MonoBehaviour
         _gameManager.GameOverEvent += OnGamePaused;
         _gameManager.WonEvent += OnGamePaused;
         _gameManager.ResumeEvent += OnGameResumed;
+
+        // Set Mouse Sensitivity
+        _saveSystem = GameObject.Find(_saveSystemName).GetComponent<SaveSystem>();
+        _saveSystem.GameSettingLoaded += OnGameSettingUpdated;
     }
 
     // Modify Camera Rotation and Camera FOV
     void Update() {
         if (_active) {
             // Rotate the camera
-            _mouseX = Input.GetAxis(_mouseXAxisName) * _horizontalSensitivity;
-            _mouseY = Input.GetAxis(_mouseYAxisName) * _verticalSensitivity;
+            _mouseX = Input.GetAxis(_mouseXAxisName) * _mouseSensitivity;
+            _mouseY = Input.GetAxis(_mouseYAxisName) * _mouseSensitivity;
             transform.Rotate(Vector3.up, _mouseX, Space.World);
             transform.Rotate(-transform.right, _mouseY, Space.World);
 
@@ -80,6 +81,11 @@ public class CameraController : MonoBehaviour
     void ResetFOV() {
         _targetFOV = _defaultFov;
         _count = 0;
+    }
+    
+    // Update Mouse Sensitivity
+    void OnGameSettingUpdated(object sender, GameSettingEventArgs e) {
+        _mouseSensitivity = e.Setting.MouseSensitivity;
     }
 
     // Unlock Mouse
