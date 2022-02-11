@@ -2505,5 +2505,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnArea
       objectReference: {fileID: 0}
+    - target: {fileID: 7194765177363100499, guid: 25bd8d1ae1663f94e8281550ac1cc51c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25bd8d1ae1663f94e8281550ac1cc51c, type: 3}

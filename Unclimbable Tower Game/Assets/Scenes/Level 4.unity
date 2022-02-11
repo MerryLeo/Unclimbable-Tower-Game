@@ -1111,6 +1111,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level 4 Tower
       objectReference: {fileID: 0}
+    - target: {fileID: 4177450928241408058, guid: 2719f0fa1c015744ead722e73b9c4aa2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4177450928241408059, guid: 2719f0fa1c015744ead722e73b9c4aa2, type: 3}
       propertyPath: m_RootOrder
       value: 11

@@ -46,8 +46,6 @@ public class PlayerController_FSM : MonoBehaviour
     public float MidairDrag => 0.95f;
     public float HorizontalRunningFactor => 0.75f; // Decreases the horizontal movement speed of the player while he's running
     public float BackwardRunningFactor => 0.25f; // Decreases the backward movement speed of the player while he's running
-
-    // public float RunningFOV => 80f;
     public Transform CameraTransform { get; private set; }
     #endregion
 
