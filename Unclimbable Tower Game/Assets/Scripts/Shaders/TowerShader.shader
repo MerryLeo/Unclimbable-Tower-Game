@@ -26,9 +26,8 @@ Shader "Custom/TowerShader"
         #define PI 3.14159265359
 
         sampler2D _TopTex, _SideTex;
-        float4 _TopTex_ST, _SideTex_ST;
+        float4 _TopColor, _SideColor, _TopTex_ST, _SideTex_ST;
         float _TopOpacity, _SideOpacity;
-        float4 _TopColor, _SideColor;
 
         struct Input
         {

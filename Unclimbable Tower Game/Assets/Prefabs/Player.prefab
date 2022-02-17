@@ -165,8 +165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 029186eb0ab934743a54b410c48a1b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _horizontalSensitivity: 0.5
-  _verticalSensitivity: 0.5
   _playerController: {fileID: 1830933508386615924}
 --- !u!114 &2477032069558320695
 MonoBehaviour:
@@ -293,7 +291,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7218442131931561060}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 2039145f47c0c9f4ab7b6e59ed5e9768, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5

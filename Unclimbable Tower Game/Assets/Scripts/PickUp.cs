@@ -60,7 +60,8 @@ public class PickUp : MonoBehaviour {
             }
         }
 
-        else if (CurrentState is PickupState.HOLDINGHEAVYOBJECT || CurrentState is PickupState.HOLDINGLIGHTOBJECT) { // Holding Object
+        // Holding Object
+        else if (CurrentState is PickupState.HOLDINGHEAVYOBJECT || CurrentState is PickupState.HOLDINGLIGHTOBJECT) { 
             // Throw
             if (CurrentState is PickupState.HOLDINGLIGHTOBJECT && Input.GetButton("Fire2"))
                 Throw();
