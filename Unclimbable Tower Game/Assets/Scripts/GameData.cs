@@ -1,3 +1,5 @@
+// Class that contains all the data saved
+
 using UnityEngine;
 
 [System.Serializable]
@@ -29,8 +31,7 @@ public class GameData {
         return setting;
     }
 
-    public override string ToString()
-    {
+    public override string ToString() {
         return $"Level {Level}, ScreenMode {ScreenMode}, ScreenResolution {Width}x{Height}, MouseSensitivity {MouseSensitivity}, Music {MusicVolume}, Sound {SoundVolume}.";
     }
 }

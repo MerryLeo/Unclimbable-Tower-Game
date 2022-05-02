@@ -1597,8 +1597,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 510080131}
-  - component: {fileID: 510080130}
   - component: {fileID: 510080132}
+  - component: {fileID: 510080130}
   m_Layer: 0
   m_Name: MusicPlayer
   m_TagString: Untagged
@@ -1710,7 +1710,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510080129}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5019094, y: 6.8380632, z: -1.3799357}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
