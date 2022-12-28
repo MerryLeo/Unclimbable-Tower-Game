@@ -2,7 +2,8 @@
 
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour {
+public class AudioManager : MonoBehaviour 
+{
     [Header("Ground Audio Settings")]
     [SerializeField] GroundSound[] groundAudios;
 
@@ -13,7 +14,8 @@ public class AudioManager : MonoBehaviour {
 }
 
 [System.Serializable]
-public class GroundSound {
+public class GroundSound 
+{
     public Sound RunSound;
     public Sound WalkSound;
     public Sound JumpSound;
@@ -22,13 +24,15 @@ public class GroundSound {
 }
 
 [System.Serializable]
-public class PropSound {
+public class PropSound 
+{
     public Sound CollisionSound;
     public int Mask;
 }
 
 [System.Serializable]
-public class Sound {
+public class Sound 
+{
     public AudioClip clip;
     public float volume = 1;
     public float pitch = 1;

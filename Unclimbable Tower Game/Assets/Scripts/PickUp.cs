@@ -5,27 +5,32 @@ using UnityEngine;
 using System;
 
 [RequireComponent(typeof(CameraController))]
-public class PickUp : MonoBehaviour {
+public class PickUp : MonoBehaviour 
+{
+    const float MAX_PICKUP_DIST = 5f, MAX_HOLD_DIST = 5.5f, MIN_CAM_DIST = 1.5f, FORCE = 100f, THROW_FORCE = 275f, TORQUE = 45f;
+    const float PICKUP_ANGULAR_DRAG = 15f, PICKUP_DRAG = 10f;
+    const string MOUSE_X_AXIS_NAME = "Mouse X", MOUSE_Y_AXIS_NAME = "Mouse Y";
+    
+    // Object heavier than weightThreshold will be considered heavy
+    const int WEIGHT_THRESHOLD = 80; 
     public PickupState CurrentState { get; private set; } = PickupState.IDLE;
     public event EventHandler<PickupStateEventArgs> PickupStateChanged;
-    const float _maxPickupDst = 5f, _maxHoldDst = 5.5f, _minCameraObjectDst = 1.5f, _force = 100f, _throwForce = 275f, _torque = 45f;
-    const float _pickupAngularDrag = 15f, _pickupDrag = 10f;
-    const string _mouseXAxisName = "Mouse X", _mouseYAxisName = "Mouse Y";
-    const int _weightThreshold = 80; // Object heavier than weightThreshold will be considered heavy
+    
     LayerMask _holdingLayer;
-    Transform _pickedTrans, _rotationTrans;
+    Transform _pickedTransform, _rotationTransform;
     AnimationCurve _pickupSpeedCurve;
     float _currentForce, _time;
     ObjectData _objectData;
     CameraController _camController;
     
-    void Start() {
+    void Start() 
+    {
         // Location where the player picked the object
-        _pickedTrans = new GameObject("PickedLocation").transform;
-        _pickedTrans.SetParent(transform);
+        _pickedTransform = new GameObject("PickedLocation").transform;
+        _pickedTransform.SetParent(transform);
 
         // Empty Trans used for rotation computation solely
-        _rotationTrans = new GameObject().transform;
+        _rotationTransform = new GameObject().transform;
 
         // Layers to prohibit the player from jumping on the object in his hand
         _holdingLayer = LayerMask.NameToLayer("Holding");
@@ -40,13 +45,14 @@ public class PickUp : MonoBehaviour {
         _pickupSpeedCurve = new AnimationCurve(keys);
     }
 
-    void Update() {
+    void Update() 
+    {
         // Idle
         if (CurrentState is PickupState.IDLE || CurrentState is PickupState.OBJECTINSIGHT) {
             RaycastHit hitInfo;
             Ray ray = new Ray(transform.position, transform.forward);
             bool pickableObjectInSight = false;
-            if (Physics.Raycast(ray, out hitInfo, _maxPickupDst)) { // Throw Ray to check for object
+            if (Physics.Raycast(ray, out hitInfo, MAX_PICKUP_DIST)) { // Throw Ray to check for object
                 PickableObject objectScript = hitInfo.transform.GetComponent<PickableObject>();
                 pickableObjectInSight = objectScript?.CurrentState is ObjectState.PICKABLE;
                 if (CurrentState is PickupState.IDLE && pickableObjectInSight) // Change State to OBJECTINSIGHT
@@ -67,7 +73,7 @@ public class PickUp : MonoBehaviour {
                 Throw();
 
             // Release
-            if (!Input.GetButton("Fire1") || Vector3.Distance(transform.position, _objectData.ObjectRbody.transform.position) > _maxHoldDst)
+            if (!Input.GetButton("Fire1") || Vector3.Distance(transform.position, _objectData.ObjectRbody.transform.position) > MAX_HOLD_DIST)
                 Release();
 
             else if (CurrentState is PickupState.HOLDINGLIGHTOBJECT && Input.GetButton("Rotate")) {
@@ -80,7 +86,7 @@ public class PickUp : MonoBehaviour {
             if (Input.GetButton("Fire2"))
                 Throw();
             
-            else if (!Input.GetButton("Fire1") || Vector3.Distance(transform.position, _objectData.ObjectRbody.transform.position) > _maxHoldDst)
+            else if (!Input.GetButton("Fire1") || Vector3.Distance(transform.position, _objectData.ObjectRbody.transform.position) > MAX_HOLD_DIST)
                 Release();
 
             else if (!Input.GetButton("Rotate"))
@@ -89,7 +95,7 @@ public class PickUp : MonoBehaviour {
 
             if (!(CurrentState is PickupState.ROTATINGLIGHTOBJECT)) {
                 _camController.enabled = true;
-                _pickedTrans.forward = transform.forward;
+                _pickedTransform.forward = transform.forward;
             }
         }
     }
@@ -97,8 +103,8 @@ public class PickUp : MonoBehaviour {
     void FixedUpdate() {
         // Move object
         if (CurrentState is PickupState.HOLDINGLIGHTOBJECT || CurrentState is PickupState.HOLDINGHEAVYOBJECT || CurrentState is PickupState.ROTATINGLIGHTOBJECT) {
-            _currentForce = _pickupSpeedCurve.Evaluate(Time.time - _time).Remap(0, 1, 0, _force); // Force is a value between 0 and maxForce
-            Vector3 destination = transform.position + transform.forward * _minCameraObjectDst;
+            _currentForce = _pickupSpeedCurve.Evaluate(Time.time - _time).Remap(0, 1, 0, FORCE); // Force is a value between 0 and maxForce
+            Vector3 destination = transform.position + transform.forward * MIN_CAM_DIST;
             if (CurrentState is PickupState.HOLDINGLIGHTOBJECT) {
                 Move(destination, _currentForce);
                 AlignRotation(transform.forward);
@@ -138,25 +144,25 @@ public class PickUp : MonoBehaviour {
         _objectData = new ObjectData(pickup);
 
         // Modify empty transform for positioning and rotation
-        _pickedTrans.transform.position = hitInfo.point;
-        _pickedTrans.transform.rotation = transform.rotation;
-        _pickedTrans.SetParent(_objectData.ObjectRbody.transform);
+        _pickedTransform.transform.position = hitInfo.point;
+        _pickedTransform.transform.rotation = transform.rotation;
+        _pickedTransform.SetParent(_objectData.ObjectRbody.transform);
 
         // Time variable used for the force
         _time = Time.time;
 
         // Change state
-        PickupState newState = (_objectData.ObjectRbody.mass > _weightThreshold) ? PickupState.HOLDINGHEAVYOBJECT : PickupState.HOLDINGLIGHTOBJECT;
+        PickupState newState = (_objectData.ObjectRbody.mass > WEIGHT_THRESHOLD) ? PickupState.HOLDINGHEAVYOBJECT : PickupState.HOLDINGLIGHTOBJECT;
         SetState(newState);
         this._objectData.ObjectScript.ChangeState(ObjectState.HELD);
 
         // Modify Rigidbody
-        _objectData.UpdateRbody(_pickupDrag, _pickupAngularDrag, true, _holdingLayer);
+        _objectData.UpdateRbody(PICKUP_DRAG, PICKUP_ANGULAR_DRAG, true, _holdingLayer);
     }
 
     // Move Object to Position with Force
     void Move(Vector3 position, float force) {
-        Vector3 movement = (position - _pickedTrans.transform.position) * (force / _objectData.ObjectRbody.mass);
+        Vector3 movement = (position - _pickedTransform.transform.position) * (force / _objectData.ObjectRbody.mass);
         float strength = 0.8f / Vector3.Distance(_objectData.ObjectRbody.position, transform.position);
         Vector3 repulsion = strength * (_objectData.ObjectRbody.position - transform.position);
         movement += repulsion;
@@ -165,7 +171,7 @@ public class PickUp : MonoBehaviour {
 
     // Drag Object along the x-axis/z-axis to Position with Force
     void Drag(Vector3 position, float force) {
-        Vector3 movement = (position - _pickedTrans.transform.position) * (force / _objectData.ObjectRbody.mass);
+        Vector3 movement = (position - _pickedTransform.transform.position) * (force / _objectData.ObjectRbody.mass);
         movement -= Vector3.up * movement.y;
         _objectData.ObjectRbody.AddForce(movement, ForceMode.VelocityChange);
     }
@@ -173,30 +179,30 @@ public class PickUp : MonoBehaviour {
     // Throw Object forward
     void Throw() {
         Release();
-        _objectData.ObjectRbody.AddForce(transform.forward * _throwForce, ForceMode.Impulse);
+        _objectData.ObjectRbody.AddForce(transform.forward * THROW_FORCE, ForceMode.Impulse);
         _objectData.ObjectScript.ChangeState(ObjectState.THROWN);
     }
 
     // Rotate the object using mouse inputs
     void Rotate() {
-        float horizontalInput = Input.GetAxis(_mouseXAxisName);
-        float verticalInput = Input.GetAxis(_mouseYAxisName);
+        float horizontalInput = Input.GetAxis(MOUSE_X_AXIS_NAME);
+        float verticalInput = Input.GetAxis(MOUSE_Y_AXIS_NAME);
         Vector3 torqueDir = -transform.right * verticalInput + Vector3.up * horizontalInput; 
-        _objectData.ObjectRbody.AddTorque(torqueDir * _torque, ForceMode.Acceleration);
+        _objectData.ObjectRbody.AddTorque(torqueDir * TORQUE, ForceMode.Acceleration);
     }
 
     #endregion
 
     // Align the pickedTrans forward with direction
     void AlignRotation(Vector3 direction) {
-        Vector3 rot1 = Vector3.Cross(_pickedTrans.transform.forward - Vector3.up * _pickedTrans.transform.forward.y, direction - Vector3.up * direction.y);
-        Vector3 rot2 = Vector3.Cross(_pickedTrans.transform.forward,direction);
+        Vector3 rot1 = Vector3.Cross(_pickedTransform.transform.forward - Vector3.up * _pickedTransform.transform.forward.y, direction - Vector3.up * direction.y);
+        Vector3 rot2 = Vector3.Cross(_pickedTransform.transform.forward,direction);
         rot2 -= Vector3.up * rot2.y;
-        _rotationTrans.transform.forward = direction;
-        _rotationTrans.RotateAround(_rotationTrans.transform.position, Vector3.Cross(direction, Vector3.up), 90);
-        Vector3 rot3 = Vector3.Cross(_pickedTrans.transform.up, _rotationTrans.forward);
+        _rotationTransform.transform.forward = direction;
+        _rotationTransform.RotateAround(_rotationTransform.transform.position, Vector3.Cross(direction, Vector3.up), 90);
+        Vector3 rot3 = Vector3.Cross(_pickedTransform.transform.up, _rotationTransform.forward);
         Vector3 torqueDir = rot1 + rot2 + rot3;
-        _objectData.ObjectRbody.AddTorque(torqueDir * _torque, ForceMode.Acceleration);
+        _objectData.ObjectRbody.AddTorque(torqueDir * TORQUE, ForceMode.Acceleration);
     }
 
     // Class used to save and update an object's rigidbody variables
@@ -238,11 +244,13 @@ public class PickUp : MonoBehaviour {
     }
 }
 
-public class PickupStateEventArgs : EventArgs {
+public class PickupStateEventArgs : EventArgs 
+{
     public PickupState NewState;
 }
 
-public enum PickupState {
+public enum PickupState 
+{
     HOLDINGLIGHTOBJECT,
     HOLDINGHEAVYOBJECT,
     ROTATINGLIGHTOBJECT,

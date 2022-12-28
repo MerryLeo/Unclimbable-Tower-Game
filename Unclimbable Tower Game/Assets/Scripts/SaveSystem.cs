@@ -4,13 +4,16 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.SceneManagement;
 
-public class SaveSystem : MonoBehaviour {
+public class SaveSystem : MonoBehaviour 
+{
+    const string FILE_PATH = "/gamedata.txt";
     public GameData Data { get; private set; }
     public GameData DefaultData { get; private set; }
     public event EventHandler<GameSettingEventArgs> GameSettingLoaded;
     public event EventHandler GameLoaded;
-    const string _filePath = "/gamedata.txt";
-    void Start() {
+    
+    void Start() 
+    {
 
         // Default Game Data
         GameSetting defaultSetting = new GameSetting();
@@ -23,7 +26,8 @@ public class SaveSystem : MonoBehaviour {
 
         // Set Data to Current Save or Default
         Data = LoadGame();
-        if (Data == null) {
+        if (Data == null) 
+        {
             Data = DefaultData;
             SaveGame(Data);
         }
@@ -33,7 +37,8 @@ public class SaveSystem : MonoBehaviour {
     }
 
     // Reset Data to its default value and Save
-    public void ResetGame() {
+    public void ResetGame() 
+    {
         Data = LoadGame();
         if (Data == null)
             Data = DefaultData;
@@ -46,14 +51,16 @@ public class SaveSystem : MonoBehaviour {
     }
 
     // Update Current Save with newData
-    public void UpdateSave(GameData newData) {
+    public void UpdateSave(GameData newData) 
+    {
         Data = newData;
         SaveGame(newData);
         EventHandler handler = GameLoaded;
         handler?.Invoke(this, EventArgs.Empty);
     }
 
-    public void LoadSetting() {
+    public void LoadSetting() 
+    {
         FullScreenMode screenMode = (FullScreenMode)Data.ScreenMode;
         Screen.SetResolution(Data.Width, Data.Height, screenMode);
 
@@ -64,11 +71,12 @@ public class SaveSystem : MonoBehaviour {
         handler?.Invoke(this, args);
     }
 
-    public void UpdateSetting(GameSetting setting) {
+    public void UpdateSetting(GameSetting setting) 
+    {
         
         // Update Data
-        Data.Width = setting.ScreenResolution.width;
-        Data.Height = setting.ScreenResolution.height;
+        Data.Width = setting.ScreenResolution.Width;
+        Data.Height = setting.ScreenResolution.Height;
         Data.MouseSensitivity = setting.MouseSensitivity;
         Data.ScreenMode = (int)setting.ScreenMode;
         Data.SoundVolume = setting.SoundVolume;
@@ -80,43 +88,51 @@ public class SaveSystem : MonoBehaviour {
     
 
     // Update binary file with Data
-    public static void SaveGame(GameData data) {
+    public static void SaveGame(GameData data) 
+    {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + _filePath;
+        string path = Application.persistentDataPath + FILE_PATH;
         FileStream stream = new FileStream(path, FileMode.Create);
         formatter.Serialize(stream, data);
         stream.Close();
     }
 
     // Update Data Variable with a binary file
-    public static GameData LoadGame() {
-        string path = Application.persistentDataPath + _filePath;
-        if (File.Exists(path)) {
+    public static GameData LoadGame() 
+    {
+        string path = Application.persistentDataPath + FILE_PATH;
+        if (File.Exists(path)) 
+        {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
             GameData data = formatter.Deserialize(stream) as GameData;
             stream.Close();
             return data;
-        } else {
+        } 
+        else 
             return null;
-        }
+        
     }
 }
 
-public class GameSettingEventArgs : EventArgs {
+public class GameSettingEventArgs : EventArgs 
+{
     public GameSetting Setting;
 }
 
-public class ScreenResolution {
-    public int width;
-    public int height;
-    public ScreenResolution(int width, int height) {
-        this.width = width;
-        this.height = height;
+public class ScreenResolution 
+{
+    public int Width;
+    public int Height;
+    public ScreenResolution(int width, int height) 
+    {
+        this.Width = width;
+        this.Height = height;
     }
 }
 
-public class GameSetting {
+public class GameSetting 
+{
     public  ScreenResolution ScreenResolution;
     public FullScreenMode ScreenMode;
     public float MouseSensitivity;

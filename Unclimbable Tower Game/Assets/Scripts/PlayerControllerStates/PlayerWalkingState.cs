@@ -1,11 +1,15 @@
 using UnityEngine;
-public class PlayerWalkingState : PlayerBaseState {
+
+public class PlayerWalkingState : PlayerBaseState 
+{
+    const string _jumpInput = "Jump", _runInput = "Run";
     Vector3 _moveDirection;
     bool _grounded, _running, _walking, _jumping;
-    const string _jumpInput = "Jump", _runInput = "Run";
-    public override void EnterState(PlayerController_FSM playerController) { }
+    
+    public override void EnterState(PlayerController playerController) { }
 
-    public override void Update(PlayerController_FSM playerController) {
+    public override void Update(PlayerController playerController) 
+    {
         // Movement Direction
         _moveDirection = playerController.GetMovementInputs();
 
@@ -16,13 +20,15 @@ public class PlayerWalkingState : PlayerBaseState {
         _grounded = playerController.Grounded;
     }
 
-    public override void FixedUpdate(PlayerController_FSM playerController) {
+    public override void FixedUpdate(PlayerController playerController) 
+    {
         // Actions
         playerController.Walk(_moveDirection);
         playerController.ApplyDrag(playerController.Drag);
     }
 
-    public override void LateUpdate(PlayerController_FSM playerController) {
+    public override void LateUpdate(PlayerController playerController) 
+    {
         // Transition to Falling State
         if (!_grounded)
             playerController.TransitionToState(playerController.FallingState);

@@ -1,9 +1,12 @@
-public static class StringExtension {
+public static class StringExtension 
+{
 
     // Returns all numbers in string
-    public static int? FetchNumber(this string text) {
+    public static int? FetchNumber(this string text) 
+    {
         string number = string.Empty;
-        for (int i = 0; i < text.Length; i++) {
+        for (int i = 0; i < text.Length; i++) 
+        {
             if (char.IsDigit(text[i]))
                 number += text[i];
         }

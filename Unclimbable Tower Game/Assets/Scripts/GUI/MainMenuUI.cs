@@ -3,7 +3,10 @@ using UnityEngine.UI;
 using System;
 
 [SelectionBase]
-public class MainMenuUI : MonoBehaviour {
+public class MainMenuUI : MonoBehaviour 
+{
+    const string _saveSystemName = "SaveSystem";
+
     [Header("Main UI Screen")]
     [SerializeField] GameObject mainUIObj;
     [SerializeField] Button continueButton;
@@ -15,8 +18,9 @@ public class MainMenuUI : MonoBehaviour {
     [SerializeField] GameObject settingPanel;
     LevelButton[] _buttons;
     SaveSystem _saveSystem;
-    const string _saveSystemName = "SaveSystem";
-    void Start() {
+    
+    void Start() 
+    {
         _saveSystem = GameObject.Find(_saveSystemName).GetComponent<SaveSystem>();
         _saveSystem.GameLoaded += OnGameLoaded;
 
@@ -24,17 +28,20 @@ public class MainMenuUI : MonoBehaviour {
         exitButton.onClick.AddListener(GameManager.QuitGame);
     }
 
-    public void SetSettingPanel(bool active) {
+    public void SetSettingPanel(bool active) 
+    {
         secondMenuCanvas.SetActive(!active);
         levelButtonObj.SetActive(!active);
         settingPanel.SetActive(active);
     }
 
-    void OnGameLoaded(object sender, EventArgs e) {
+    void OnGameLoaded(object sender, EventArgs e) 
+    {
         
         // Level Buttons
         _buttons = GetComponentsInChildren<LevelButton>();
-        for (int i = 0; i < _buttons.Length; i++) {
+        for (int i = 0; i < _buttons.Length; i++) 
+        {
             if (_buttons[i].LevelNum <= _saveSystem.Data.Level) 
                 _buttons[i].GetComponent<Button>().interactable = true;
             else
@@ -42,11 +49,12 @@ public class MainMenuUI : MonoBehaviour {
         }
         
         // Continue Button
-        if (_saveSystem.Data.Level < 2 || _saveSystem.Data.Level >= 8) {
+        if (_saveSystem.Data.Level < 2 || _saveSystem.Data.Level >= 8) 
             continueButton.interactable = false;
-        } else {
+        
+        else 
             continueButton.onClick.AddListener(delegate{ GameManager.LoadLevel(_saveSystem.Data.Level ); });
-        }
+        
         
         // Exit Button
         exitButton.onClick.AddListener(delegate{ GameManager.QuitGame(); });

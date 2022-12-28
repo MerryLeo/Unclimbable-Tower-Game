@@ -2,16 +2,20 @@
 
 using UnityEngine;
 
-public class Goal : MonoBehaviour {
+public class Goal : MonoBehaviour 
+{
+    const string PLAYER_TAG = "Player", GAME_MANAGER_NAME = "GameManager";
     GameManager _gameManager;
-    const string _playerTag = "Player", _gameManagerName = "GameManager";
-    void Start() {
-        _gameManager = GameObject.Find(_gameManagerName).GetComponent<GameManager>();
+    void Start() 
+    {
+        _gameManager = GameObject.Find(GAME_MANAGER_NAME).GetComponent<GameManager>();
     }
 
     // Call Win if the player touches this object
-    void OnTriggerEnter(Collider collider) {
-        if (collider.gameObject.tag == _playerTag) {
+    void OnTriggerEnter(Collider collider) 
+    {
+        if (collider.gameObject.tag == PLAYER_TAG) 
+        {
             gameObject.SetActive(false);
             _gameManager.Win();
         }

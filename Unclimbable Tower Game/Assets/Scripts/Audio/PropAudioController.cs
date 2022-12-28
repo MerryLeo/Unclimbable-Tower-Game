@@ -7,17 +7,19 @@ using System;
 
 [RequireComponent(typeof(PickableObject))]
 [RequireComponent(typeof(Rigidbody))]
-public class PropAudioController : MonoBehaviour {
-    AudioManager _audioManager; // Contains different audios assosiated with a layer each
-    Rigidbody _rbody;
-    SaveSystem _saveSystem;
-    float volume = 1;
+public class PropAudioController : MonoBehaviour 
+{
     const float _minVol = 0.02f, _maxVol = 1f;
     const float _maxSpeedThreshold = 0.3f;
     const string _audioManagerName = "AudioManager", _saveSystemName = "SaveSystem";
+    AudioManager _audioManager; // Contains different audios assosiated with a layer each
+    Rigidbody _rbody;
+    SaveSystem _saveSystem;
+    float _volume = 1;
 
     // Get Basic Components
-    void Awake() {
+    void Awake() 
+    {
         _audioManager = GameObject.Find(_audioManagerName).GetComponent<AudioManager>();
         _saveSystem = GameObject.Find(_saveSystemName).GetComponent<SaveSystem>();
         _saveSystem.GameSettingLoaded += OnGameSettingChanged;
@@ -25,18 +27,20 @@ public class PropAudioController : MonoBehaviour {
         _rbody = GetComponent<Rigidbody>();
     }
 
-    void OnGameSettingChanged(object sender, EventArgs e) {
-        this.volume = _saveSystem.Data.SoundVolume;
-    }
+    void OnGameSettingChanged(object sender, EventArgs e) 
+        => this._volume = _saveSystem.Data.SoundVolume;
 
     // Play Sound from Collision
-    void OnCollisionEnter(Collision other)  {
-        if (other != null) { 
-            for (int i = 0; i < other.contactCount; i++) {
+    void OnCollisionEnter(Collision other)  
+    {
+        if (other != null) 
+        { 
+            for (int i = 0; i < other.contactCount; i++) 
+            {
                 ContactPoint contact = other.GetContact(i);
                 float speed = Mathf.Abs(Vector3.Dot(_rbody.velocity, (contact.point - transform.position).normalized));
                 float volume = (speed <= _maxSpeedThreshold) ? speed.Remap(0, _maxSpeedThreshold, _minVol, _maxVol) : _maxVol;
-                volume *= this.volume;
+                volume *= this._volume;
                 PropSound sound = _audioManager.PropAudios.FirstOrDefault<PropSound>(x => x.Mask == contact.otherCollider.gameObject.layer);
                 if (sound != null)
                     AudioSource.PlayClipAtPoint(sound.CollisionSound.clip, contact.point, volume);

@@ -2,10 +2,11 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class PlayerUIScreen : MonoBehaviour {
-    
+public class PlayerUIScreen : MonoBehaviour 
+{
+    const string _spawnTag = "SpawnArea", _gameManagerName = "GameManager";
+
     [Header("UI Game Objects")]
     [SerializeField] GameObject crosshairObj;
     [SerializeField] GameObject timerObj;
@@ -16,10 +17,9 @@ public class PlayerUIScreen : MonoBehaviour {
     [SerializeField] Timer timer;
     SpawnArea _spawn;
     GameManager _manager;
-    const string _spawnTag = "SpawnArea", _gameManagerName = "GameManager";
-
-    // Start is called before the first frame update
-    void Start() {
+    
+    void Start() 
+    {
         // Add Listeners to Game Manager
         _manager = GameObject.Find(_gameManagerName).GetComponent<GameManager>();
         _manager.PauseEvent += OnGamePaused;
@@ -39,7 +39,8 @@ public class PlayerUIScreen : MonoBehaviour {
         gameOverScreenObj.SetActive(false);
     }
 
-    public void OpenSettingWindow() {
+    public void OpenSettingWindow() 
+    {
         winScreenObj.SetActive(false);
         pauseScreenObj.SetActive(false);
         optionScreenObj.SetActive(true);
@@ -47,7 +48,8 @@ public class PlayerUIScreen : MonoBehaviour {
         gameOverScreenObj.SetActive(false);
     }
 
-    public void CloseSettingWindowAndSave() {
+    public void CloseSettingWindowAndSave() 
+    {
         winScreenObj.SetActive(false);
         pauseScreenObj.SetActive(true);
         optionScreenObj.SetActive(false);
@@ -55,12 +57,14 @@ public class PlayerUIScreen : MonoBehaviour {
         gameOverScreenObj.SetActive(false);
     }
 
-    void OnPlayerOutOfSpawn(object sender, EventArgs e) {
+    void OnPlayerOutOfSpawn(object sender, EventArgs e) 
+    {
         timer.InitializeTimer();
         timer.StartTimer();
     }
 
-    void OnGamePaused(object sender, EventArgs e) {
+    void OnGamePaused(object sender, EventArgs e) 
+    {
         // Timer
         if (timer.Initialised)
             timer.StartTimer();
@@ -73,7 +77,8 @@ public class PlayerUIScreen : MonoBehaviour {
         gameOverScreenObj.SetActive(false);
     }
 
-    void OnGameResumed(object sender, EventArgs e) {
+    void OnGameResumed(object sender, EventArgs e) 
+    {
         // Timer
         if (timer.Initialised)
             timer.StartTimer();
@@ -86,7 +91,8 @@ public class PlayerUIScreen : MonoBehaviour {
         gameOverScreenObj.SetActive(false);
     }
 
-    void OnGameWon(object sender, EventArgs e) {
+    void OnGameWon(object sender, EventArgs e) 
+    {
         // Timer
         if (timer.Initialised)
             timer.StartTimer();
@@ -99,7 +105,8 @@ public class PlayerUIScreen : MonoBehaviour {
         gameOverScreenObj.SetActive(false);
     }
 
-    void OnGameOver(object sender, EventArgs e) {
+    void OnGameOver(object sender, EventArgs e) 
+    {
         // Timer
         if (timer.Initialised)
             timer.StartTimer();

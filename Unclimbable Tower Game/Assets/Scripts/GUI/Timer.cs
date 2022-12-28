@@ -4,24 +4,26 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Text))]
-public class Timer : MonoBehaviour {
+public class Timer : MonoBehaviour 
+{
     public bool Initialised { get; private set; }
     Text _timerText;
     GameManager _manager;
     float _startTime, _time;
     bool _active, _outOfTime;
 
-    // Start is called before the first frame update
-    void Start() {
+    void Start() 
+    {
         _timerText = GetComponent<Text>();
         _manager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _active = false;
         Initialised = false;
     }
 
-    // Update is called once per frame
-    void Update() {
-        if (_active) {
+    void Update() 
+    {
+        if (_active) 
+        {
             int minute = (int)(_time - (Time.time - _startTime)/60f);
             int second = (int)(60f * (_time - minute - (Time.time - _startTime)/60f));
             if (minute > 0) 
@@ -30,7 +32,8 @@ public class Timer : MonoBehaviour {
             else if (second > 0) 
                 _timerText.text = $"{second}s";
             
-            else {
+            else 
+            {
                 _timerText.text = "Time's up!";
                 _outOfTime = true;
             }
@@ -40,15 +43,18 @@ public class Timer : MonoBehaviour {
             _manager?.GameOver();
     }
 
-    public void StartTimer() {
+    public void StartTimer() 
+    {
         _active = true;
     }
 
-    public void StopTimer() {
+    public void StopTimer() 
+    {
         _active = false;
     }
 
-    public void InitializeTimer() {
+    public void InitializeTimer() 
+    {
         Initialised = true;
         _outOfTime = false;
         _startTime = Time.time;

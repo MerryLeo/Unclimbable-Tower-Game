@@ -3,22 +3,26 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Material))]
-public class PickableObjectBehaviour : MonoBehaviour {
+public class PickableObjectBehaviour : MonoBehaviour 
+{
+    const float VERTICAL_DIST_MODIF = 0.1f;
+    const string MAT_PROPRETY_NAME = "_RingAmp";
+    const float MAT_PROPERTY_MIN_VALUE = 0f, MAT_PROPERTY_MAX_VALUE = 5f;
+
     [SerializeField] [Range(0, 5)] float minLightIntensity = 1.5f;
     [SerializeField] [Range(0, 5)] float maxLightIntensity = 2.5f;
 
     [Header("Animation Settings")]
     [SerializeField] [Range(0, 100)] float rotationSpeed = 25f;
     [SerializeField] [Range(0, 1)] float animationSpeed = 0.5f;
-    const float _verticalDistanceModifier = 0.1f;
-    const string _matPropretyName = "_RingAmp";
-    const float _matPropretyMin = 0f, _matPropretyMax = 5f;
+    
     float _curveValueRemaped, _animationTime;
     Vector3 _initialPos;
     Light _light;
     AnimationCurve _curve;
     Material _material;
-    void Start() {
+    void Start() 
+    {
         // Setup Animation Curve
         _curve = new AnimationCurve();
         _curve.AddKey(new Keyframe(0, 1, 0, 0));
@@ -34,15 +38,16 @@ public class PickableObjectBehaviour : MonoBehaviour {
         _light.intensity = minLightIntensity;
         _animationTime = 0;
     }
-    void Update() {
+    void Update() 
+    {
         // Value on the animation curve remaped to 0 and 1
         _curveValueRemaped = _curve.Evaluate(_animationTime).Remap(-1f, 1, 0f, 1f);
 
         // Update the object's rotation, position, light intensity, and emission color
         transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
-        transform.position = _initialPos + Vector3.up * _curve.Evaluate(_animationTime) * _verticalDistanceModifier;
+        transform.position = _initialPos + Vector3.up * _curve.Evaluate(_animationTime) * VERTICAL_DIST_MODIF;
         _light.intensity = Mathf.Lerp(minLightIntensity, maxLightIntensity, _curveValueRemaped);
-        _material.SetFloat(_matPropretyName, _light.intensity.Remap(minLightIntensity, maxLightIntensity, _matPropretyMin, _matPropretyMax));
+        _material.SetFloat(MAT_PROPRETY_NAME, _light.intensity.Remap(minLightIntensity, maxLightIntensity, MAT_PROPERTY_MIN_VALUE, MAT_PROPERTY_MAX_VALUE));
 
         // Update the animation time variable
         _animationTime += animationSpeed * Time.deltaTime;

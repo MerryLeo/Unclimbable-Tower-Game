@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SettingUI : MonoBehaviour {
+public class SettingUI : MonoBehaviour 
+{
+    const string _saveSystemName = "SaveSystem";
     [SerializeField] Dropdown resolutionDropdown;
     [SerializeField] Dropdown screenModeDropdown;
     [SerializeField] Slider mouseSensitivitySlider;
@@ -9,8 +11,8 @@ public class SettingUI : MonoBehaviour {
     [SerializeField] Slider musicVolumeSlider;
     SaveSystem _saveSystem;
     ScreenResolution[] _dropDownMenuResolutions; // The Resolutions MUST match the dropdown resolutions
-    const string _saveSystemName = "SaveSystem";
-    void Awake() {
+    void Awake() 
+    {
         _saveSystem = GameObject.Find(_saveSystemName).GetComponent<SaveSystem>();
         _dropDownMenuResolutions = new ScreenResolution[4] {
             new ScreenResolution(640, 480), 
@@ -26,21 +28,26 @@ public class SettingUI : MonoBehaviour {
     }
 
     // Update UI when Opened
-    void OnEnable() {
+    void OnEnable() 
+    {
         UpdateUI();
     }
 
     // Save when closed
-    void OnDisable() {
+    void OnDisable() 
+    {
         SaveSystem.SaveGame(_saveSystem.Data);
     }
 
-    void UpdateUI() {
+    void UpdateUI() 
+    {
         mouseSensitivitySlider.value = _saveSystem.Data.MouseSensitivity;
         screenModeDropdown.value = _saveSystem.Data.ScreenMode;
         int screenResIndex = 0;
-        for (int i = 0; i < _dropDownMenuResolutions.Length; i++) {
-            if (_dropDownMenuResolutions[i].width == _saveSystem.Data.Width && _dropDownMenuResolutions[i].height == _saveSystem.Data.Height) {
+        for (int i = 0; i < _dropDownMenuResolutions.Length; i++) 
+        {
+            if (_dropDownMenuResolutions[i].Width == _saveSystem.Data.Width && _dropDownMenuResolutions[i].Height == _saveSystem.Data.Height) 
+            {
                 screenResIndex = i;
                 break;
             }
@@ -50,12 +57,14 @@ public class SettingUI : MonoBehaviour {
         musicVolumeSlider.value = _saveSystem.Data.MusicVolume;
     }
 
-    public void ResetSetting() {
+    public void ResetSetting() 
+    {
         _saveSystem.UpdateSetting(_saveSystem.DefaultData.GetSetting());
         UpdateUI();
     }
 
-    public void OnResolutionChanged(int index) {
+    public void OnResolutionChanged(int index) 
+    {
         ScreenResolution newRes = _dropDownMenuResolutions[index];
         GameSetting newSetting = new GameSetting();
         newSetting.ScreenResolution = newRes;
@@ -66,7 +75,8 @@ public class SettingUI : MonoBehaviour {
         _saveSystem.UpdateSetting(newSetting);
     }
 
-    public void OnScreenModeChanged(int index) {
+    public void OnScreenModeChanged(int index) 
+    {
         GameSetting newSetting = new GameSetting();
         newSetting.ScreenMode = (index < 2) ? (FullScreenMode)index : (FullScreenMode)(index + 1);
         newSetting.ScreenResolution = new ScreenResolution(_saveSystem.Data.Width, _saveSystem.Data.Height);
@@ -76,7 +86,8 @@ public class SettingUI : MonoBehaviour {
         _saveSystem.UpdateSetting(newSetting);
     }
 
-    public void OnSensitivityChanged(float value) {
+    public void OnSensitivityChanged(float value) 
+    {
         GameSetting newSetting = new GameSetting();
         newSetting.ScreenResolution = new ScreenResolution(_saveSystem.Data.Width, _saveSystem.Data.Height);
         newSetting.MouseSensitivity = value;
@@ -86,7 +97,8 @@ public class SettingUI : MonoBehaviour {
         _saveSystem.UpdateSetting(newSetting);
     }
 
-    public void OnMusicVolumeChanged(float value) {
+    public void OnMusicVolumeChanged(float value) 
+    {
         GameSetting newSetting = new GameSetting();
         newSetting.ScreenResolution = new ScreenResolution(_saveSystem.Data.Width, _saveSystem.Data.Height);
         newSetting.MouseSensitivity = _saveSystem.Data.MouseSensitivity;
@@ -96,7 +108,8 @@ public class SettingUI : MonoBehaviour {
         _saveSystem.UpdateSetting(newSetting);
     }
 
-    public void OnSoundVolumeChanged(float value) {
+    public void OnSoundVolumeChanged(float value) 
+    {
         GameSetting newSetting = new GameSetting();
         newSetting.ScreenResolution = new ScreenResolution(_saveSystem.Data.Width, _saveSystem.Data.Height);
         newSetting.MouseSensitivity = _saveSystem.Data.MouseSensitivity;
